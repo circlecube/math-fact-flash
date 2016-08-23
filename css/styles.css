@@ -57,6 +57,10 @@
 .app .container .result {
   text-align: center;
   z-index: 1;
+  font-size: 7.5rem;
+  height: auto;
+  text-align: right;
+  padding-right: 0;
 }
 .app .container .result.success {
   border-color: #90ee90;
@@ -79,8 +83,8 @@
 .input-eq {
   position: relative;
   display: inline-block;
-  height: 38px;
-  line-height: 38px;
+  height: 10rem;
+  line-height: 10rem;
   margin: 0 0 15px;
 }
 .input-eq input {

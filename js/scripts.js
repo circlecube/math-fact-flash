@@ -36,7 +36,7 @@ var output = {
 };
 
 var config = {
-	max_errors_allowed: 1,
+	max_errors_allowed: 5,
 	pause_game_allowed: false,
 	range: [1,9],
   init_timeout: 10000,
@@ -178,6 +178,7 @@ var gameover = function ()
 var restart = function () 
 {
   abortTimeout();
+  $('.button.restart').remove();
   elements.app.removeClass("gameover");
   elements.app.removeClass("paused")
   elements.outputm.html("");
