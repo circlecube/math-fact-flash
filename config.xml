@@ -16,7 +16,6 @@
     </author>
     <gap:platform name="android" />
     <gap:platform name="ios" />
-    <gap:plugin name="nl.x-services.plugins.socialsharing" />
     <gap:plugin name="com.adobe.plugins.gaplugin" />
     <preference name="orientation" value="portrait"/>
     <preference name="fullscreen" value="true" />
