@@ -2,10 +2,10 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.circlecube.mathfactflash"
-        versionCode="100" 
-        version   = "1.0.0">
+        versionCode="20160823" 
+        version   = "2016.08.23">
 
-    <name>Math Fact Flash</name>
+    <name>Math Facts Flash</name>
 
     <description>
         Math Flash Cards to practice math facts! Try to get your highest score!
