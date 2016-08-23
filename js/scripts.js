@@ -36,7 +36,7 @@ var output = {
 };
 
 var config = {
-	max_errors_allowed: 3,
+	max_errors_allowed: 1,
 	pause_game_allowed: false,
 	range: [1,9],
   init_timeout: 10000,
@@ -156,7 +156,7 @@ var refreshMark = function ()
 
 var pause = function ()
 {
-  if ( pause_game_allowed ) {
+  if ( config.pause_game_allowed ) {
   	abortTimeout();
     elements.outputm.html("Paused")
     elements.app.addClass("paused")
@@ -168,13 +168,31 @@ var gameover = function ()
 {
   abortTimeout();
   elements.app.addClass("gameover");
-  elements.outputm.html("<i class='fa fa-wheelchair'></i> GAME OVER")
-  elements.input.attr("disabled",1);
-  elements.input.attr("placeholder", "Refresh to play");
+  elements.outputm.html("<i class='fa fa-frown-o'></i> GAME OVER");
+  // elements.input.attr("disabled",1);
+  elements.input.find(".message", "Click to play");
+  $(".mark").append('<div class="button restart">Restart</div>');
   cache.result = Math.random();
 }
 
-
+var restart = function () 
+{
+  abortTimeout();
+  elements.app.removeClass("gameover");
+  elements.app.removeClass("paused")
+  elements.outputm.html("");
+  // elements.input.attr("disabled",0);
+  // elements.input.find(".message", "Click to play");
+  cache.result = false;
+  output.errors = 0;
+  output.success = 0;
+  output.rounds = 0;
+  output.continued_success = 0;
+  output.combo = 1;
+  output.score = 0;
+  elements.input.trigger('focus');
+  setTimeout(run, 100);
+}
 
 
 /* ONE-TIME-RUN FUNCTIONS */
@@ -193,6 +211,12 @@ var addListeners = function ()
   elements.input.on('keyup', function(e){
     if (e.which == 13 || ($(this).val()==cache.result)) validate();
   });
+
+  $('.app').on('click', '.restart.button', function(e) {
+    restart();
+  });
+
+  $()
   
 }
 

@@ -56,6 +56,7 @@
 }
 .app .container .result {
   text-align: center;
+  z-index: 1;
 }
 .app .container .result.success {
   border-color: #90ee90;
@@ -92,10 +93,15 @@
   left: 10px;
   color: #a9a9a9;
   z-index: 3;
+  pointer-events: none;
 }
-.input-eq span:before {
+.input-eq .combo:before {
   content: "x";
   font-size: 13px;
+}
+.input-eq .message {
+  right: 0;
+  width: 100%;
 }
 .equation {
   border-bottom: 2px solid #666;
