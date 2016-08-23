@@ -191,6 +191,7 @@ var restart = function ()
   output.continued_success = 0;
   output.combo = 1;
   output.score = 0;
+  generateHearts();
   elements.input.trigger('focus');
   setTimeout(run, 100);
 }
