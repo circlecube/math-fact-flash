@@ -1,0 +1,113 @@
+.u-text-center {
+  text-align: center;
+}
+.timer {
+  width: 100%;
+  height: 10px;
+  background-color: #e6f3f8;
+}
+.timer .timer-value {
+  height: 100%;
+  background-color: #add8e6;
+}
+.toolbar {
+  height: 60px;
+  border-bottom: 1px solid #eaeaea;
+  line-height: 60px;
+}
+.hearts .fa-heart {
+  color: #f08080;
+  margin-right: 3px;
+}
+.hearts .fa-heart:last-child {
+  margin: 0;
+}
+.hearts .fa-heart.broken {
+  color: #fce6e6;
+}
+.app.paused * {
+  color: #b7b7b7 !important;
+}
+.app.paused .fa-heart.broken {
+  color: #e7e7e7 !important;
+}
+.app.paused .timer-value {
+  background-color: #d3d3d3 !important;
+}
+.app.gameover {
+  color: rgba(51,51,51,0.8);
+}
+.app.gameover .result {
+  background-color: rgba(211,211,211,0.2);
+}
+.app.gameover .timer-value {
+  background-color: #f08080 !important;
+}
+.app .container {
+  margin-top: 10%;
+  text-align: center;
+}
+.app .container .equation {
+  margin: 0;
+}
+.app .container .equals {
+  color: #c7c7c7;
+  margin: 0;
+}
+.app .container .result {
+  text-align: center;
+}
+.app .container .result.success {
+  border-color: #90ee90;
+}
+.app .container .result.error {
+  border-color: #f08080;
+}
+.label {
+  margin-right: 10px;
+}
+.l-success {
+  color: #90ee90;
+}
+.l-error {
+  color: #f08080;
+}
+.l-score {
+  color: #ebeb00;
+}
+.input-eq {
+  position: relative;
+  display: inline-block;
+  height: 38px;
+  line-height: 38px;
+  margin: 0 0 15px;
+}
+.input-eq input {
+  width: 100%;
+  left: 0;
+  position: absolute;
+}
+.input-eq span {
+  position: absolute;
+  left: 10px;
+  color: #a9a9a9;
+  z-index: 3;
+}
+.input-eq span:before {
+  content: "x";
+  font-size: 13px;
+}
+.equation {
+  border-bottom: 2px solid #666;
+}
+.equation > span {
+  display: block;
+}
+.term {
+  font-size: 10rem;
+  text-align: right;
+}
+.operation{
+  float: left;
+  font-size: 10rem;
+}
