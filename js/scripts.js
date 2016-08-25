@@ -38,7 +38,9 @@ var output = {
 var config = {
 	max_errors_allowed: 5,
 	pause_game_allowed: false,
-	range: [1,9],
+  range_active: [0,9],
+  range_passive: [0,9],
+  range_total: [0,20],
   init_timeout: 10000,
 }
 
@@ -55,7 +57,21 @@ var cache = {
 
 var random = function (range)
 {
-  return Math.ceil(Math.random()*range[1]+range[0]);
+  return Math.round(Math.random()*range[1]+range[0]);
+}
+
+var randomTerms = function(range)
+{
+  var result = random(range);
+  var top = random([0,result]);
+  var bottom = result-top;
+
+  var equation = {
+    'terms': [top,bottom],
+    'opperation': '+',
+    'result': result
+  };
+  return equation;
 }
 
 var startTimeout = function ()
@@ -76,20 +92,33 @@ var abortTimeout = function ()
 
 
 /* APPLICATION LOGIC FUNCTIONS */
+var generateTerms = function()
+{
+  var pasive = random(config.range_active);
+  var active = random(config.range_passive);
+  
+  cache.result = pasive + active;
 
+  if ( cache.reslut <= config.max_total ) {
+
+    var equation = {
+     'terms': [pasive,active],
+     'opperation': '+'
+    }
+    return equation;
+  }
+  else {
+    generateTerms();
+  }
+}
 var generateEq = function ()
 {
-  var pasive = random(config.range)
-  var active = random(config.range)
-  
+  var eq = randomTerms(config.range_total);
+  cache.result = eq.result;
+
   startTimeout();
   
-  cache.result = pasive + active
-  var equation = {
-    'terms': [pasive,active],
-    'opperation': '+'
-  }
-  return equation
+  return eq;
 }
 
 var validate = function ()

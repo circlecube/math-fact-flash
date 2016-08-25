@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.circlecube.mathfactflash"
-        versionCode="20160823" 
-        version   = "2016.08.23">
+        versionCode="20160825" 
+        version   = "2016.08.25">
 
     <name>Math Facts Flash</name>
 
