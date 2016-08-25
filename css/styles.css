@@ -12,9 +12,9 @@
   background-color: #add8e6;
 }
 .toolbar {
-  height: 3rem;
+  height: 5rem;
   border-bottom: 1px solid #eaeaea;
-  line-height: 3rem;
+  line-height: 5rem;
 }
 .hearts .fa-heart {
   color: #f08080;
@@ -108,6 +108,9 @@
 .input-eq .message {
   right: 0;
   width: 100%;
+}
+.equation .message {
+  line-height: 1.75em;
 }
 .equation {
   border-bottom: 2px solid #666;
