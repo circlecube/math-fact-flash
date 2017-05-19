@@ -1,129 +1,52 @@
-.u-text-center {
-  text-align: center;
+body {
+  font-size: 16px;
 }
-.timer {
-  width: 100%;
-  height: .75rem;
-  background-color: #e6f3f8;
-  margin-bottom: .25rem;
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  border: 5px solid #999;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: auto;
+  grid-template-areas: ". term"
+             "operand term"
+             "answer answer"
+             "answer answer";
+
+  font-size: 3rem;
 }
-.timer .timer-value {
-  height: 100%;
-  background-color: #add8e6;
+.ui {
+  grid-area: ui;
+  padding: 2rem;
 }
-.toolbar {
-  height: 5rem;
-  border-bottom: 1px solid #eaeaea;
-  line-height: 5rem;
-}
-.hearts .fa-heart {
-  color: #f08080;
-  margin-right: 3px;
-}
-.hearts .fa-heart:last-child {
-  margin: 0;
-}
-.hearts .fa-heart.broken {
-  color: #fce6e6;
-}
-.app.paused * {
-  color: #b7b7b7 !important;
-}
-.app.paused .fa-heart.broken {
-  color: #e7e7e7 !important;
-}
-.app.paused .timer-value {
-  background-color: #d3d3d3 !important;
-}
-.app.gameover {
-  color: rgba(51,51,51,0.8);
-}
-.app.gameover .result {
-  background-color: rgba(211,211,211,0.2);
-}
-.app.gameover .timer-value {
-  background-color: #f08080 !important;
-}
-.app .container {
-  text-align: center;
-}
-.app .container .equation {
-  margin: 0;
-}
-.app .container .equals {
-  color: #c7c7c7;
-  margin: 0;
-}
-.app .container .result {
-  text-align: center;
-  z-index: 1;
-  font-size: 8rem;
-  height: auto;
-  text-align: right;
-  padding-right: 0;
-  font-family: Raleway,HelveticaNeue,"Helvetica Neue",Helvetica,Arial,sans-serif;
-  font-weight: 300;
-}
-.app .container .result.success {
-  border-color: #90ee90;
-}
-.app .container .result.error {
-  border-color: #f08080;
-}
-.label {
-  margin-right: 10px;
-}
-.l-success {
-  color: #90ee90;
-}
-.l-error {
-  color: #f08080;
-}
-.l-score {
-  color: #ebeb00;
-}
-.input-eq {
-  position: relative;
-  display: inline-block;
-  height: 10rem;
-  line-height: 10rem;
-  margin: 0 0 15px;
-}
-.input-eq input {
-  width: 100%;
-  left: 0;
-  position: absolute;
-}
-.input-eq span {
-  position: absolute;
-  left: 10px;
-  color: #a9a9a9;
-  z-index: 3;
-  pointer-events: none;
-}
-.input-eq .combo:before {
-  content: "x";
-  font-size: 13px;
-}
-.input-eq .message {
-  right: 0;
-  width: 100%;
-}
-.equation .message {
-  line-height: 1.75em;
-}
-.equation {
-  border-bottom: 2px solid #666;
-}
-.equation > span {
-  display: block;
+.terms {
+  grid-area: term;
 }
 .term {
-  font-size: 8rem;
-  text-align: right;
+  text-align: center;
+  padding: 2rem;
+  margin: 1rem;
 }
-.operation{
-  float: left;
-  font-size: 10rem;
-  line-height: 8rem;
+.operand {
+  grid-area: operand;
+  text-align: center;
+  padding: 2rem;
+  margin: 1rem;
+}
+.answers {
+  border-top: 5px solid #999;
+  grid-area: answer;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto;
+  grid-column-gap: 1rem;
+  grid-row-gap: 1rem;
+  padding: 1rem 0 0;
+}
+.answer {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #eee;
 }
