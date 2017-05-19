@@ -18,6 +18,18 @@ main {
              "answer answer";
   font-size: 6rem;
 }
+main.on {
+  border-color: #999;
+}
+main.valid {
+  border-color: green;
+}
+main.error {
+  border-color: red;
+}
+main.end {
+  border-color: #000;
+}
 .ui {
   grid-area: ui;
   padding: 2rem;
@@ -54,4 +66,10 @@ main {
 }
 .answer:hover {
   background: #ddd;
+}
+.answer.valid {
+  background: green;
+}
+.answer.error {
+  background: red;
 }
