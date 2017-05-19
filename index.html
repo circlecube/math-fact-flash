@@ -1,62 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
 	<title>Math</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/skeleton.min.css">
-	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/styles.css?v=20160825">
+-	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.6.3/css/font-awesome.min.css">
+-	<link rel="stylesheet" type="text/css" href="css/styles.css?v=20170519">
 </head>
 <body>
+		
+	<main id="root">
+		<!-- <div class="ui">
+			<button>Pass</button>
+			<button>Restart</button>
+			<button>Pass</button>
+		</div> -->
+		<div class="terms">
+			<div class="term term1" v-text="random_term_top"></div>
+			<div class="term term2" v-text="random_term_bottom"></div>
+		</div>
+		<div class="operand" v-text="operation"></div>
+		<div class="answers">
+			<div class="answer" v-for="answer in random_answers" v-text="answer" @click="checkAnswer(answer)"></div>
+		</div>
+	</main>
 
-<div class="app">
-  
-  <div class="toolbar row">
-      <div class="hearts twelve columns u-text-center"></div>
-    </div>
-
-  <div class="container">
-    
-    <div class="row">
-      <div class="twelve columns">
-        <h1 class="equation">
-          <span class="message">Math<br> Facts<br> Flash</span>
-          <span class="term term1"></span>
-          <span class="operation"></span>
-          <span class="term term2"></span>
-        </h1>
-      </div>
-    </div>
-
-    <div class="timer"><div class="timer-value"></div></div>
-    
-    <div class="row">
-      <div class="twelve columns">
-        <div class="input-eq u-full-width">
-          <input type="number" class="result" pattern="[0-9]" min="0" />
-          <span class="message">Start</span>
-          <span class="combo">1</span>
-        </div>
-      </div>
-    </div>
-    
-    <div class="mark">
-      <span class="label l-success">
-        <i class="fa fa-check"></i> <span class="success">0</span>
-      </span>
-      <span class="label l-error">
-        <i class="fa fa-times"></i> <span class="errors">0</span>
-      </span>
-      <span class="label l-score">
-        <i class="fa fa-trophy"></i> <span class="score">0</span>
-      </span>
-    </div>
-
-  </div>
-</div>
-
-
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/scripts.js?v=20160825"></script>
+	<script src="https://unpkg.com/vue"></script>
+	-<script type="text/javascript" src="js/scripts.js?v=20170519"></script>
 </body>
 </html>
