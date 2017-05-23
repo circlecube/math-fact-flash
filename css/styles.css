@@ -39,7 +39,7 @@ main.end {
 }
 .term {
   text-align: center;
-  padding: 2rem 0;
+  padding: .5rem 0;
 }
 .operand {
   grid-area: operand;
