@@ -5,27 +5,58 @@
 	<title>Math</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/styles.css?v=20170519">
+	<link rel="stylesheet" type="text/css" href="css/styles.css?v=20170524">
 </head>
 <body>
-		
-	<main id="app" v-bind:class="state" v-bind:data-errors="errors" v-bind:data-valids="valids">
-		<!-- <div class="ui">
-			<button>Pass</button>
-			<button>Restart</button>
-			<button>Pass</button>
-		</div> -->
+
+	<main id="app" v-bind:class="state" v-bind:data-errors="errors" v-bind:data-valids="valids" v-bind:data-answers="answers">
+
+		<div class="modal-mask" v-if="showModal">
+		  <div class="modal-wrapper">
+		    <div class="modal-container">
+
+		      <div class="modal-header">
+		        <h3>Options</h3>
+		      </div>
+
+		      <div class="modal-body">
+		        <div><label>Operand <select v-model="operation">
+		        	<option value="+">+ Addition</option>
+					<option value="-">- Subtraction</option>
+					<option value="×">× Multiplication</option>
+					<!-- <option value="÷">÷ Division</option> -->
+				</select></label></div>
+				<div><label>First Number Range <input type="number" v-model.number="active_min"> - <input type="number" v-model.number="active_max"></label></div>
+				<div><label>Second Number <input type="number" v-model.number="passive_min"> - <input type="number" v-model.number="passive_max"></label></div>
+		      </div>
+
+		      <div class="modal-footer">
+		          <button class="modal-default-button" @click="reset">
+		            OK
+		          </button>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
+
+		<div class="ui">
+			<div class="grade" v-text="grade"></div>
+			<button @click="getRandomValues">Pass</button>
+			<button @click="reset">Restart</button>
+			<button @click="showModal = true">Options</button>
+		</div>
 		<div class="terms">
-			<div class="term term1" v-text="random_term_top"></div>
-			<div class="term term2" v-text="random_term_bottom"></div>
+			<div class="term term1" v-text="active_val"></div>
+			<div class="term term2" v-text="passive_val"></div>
 		</div>
 		<div class="operand" v-text="operation"></div>
 		<div class="answers">
-			<div class="answer" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="checkAnswer(i)"></div>
+			<div class="answer" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="(answer.state === 'on' ? checkAnswer(i) : null)"></div>
 		</div>
 	</main>
 
 	<script src="js/vue-dev.2.3.3.js"></script>
-	<script src="js/scripts.js?v=20170519"></script>
+	<script src="js/scripts.js?v=20170524"></script>
 </body>
 </html>
