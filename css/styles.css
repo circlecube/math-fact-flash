@@ -44,7 +44,7 @@ main.end {
 .operand {
   grid-area: operand;
   text-align: center;
-  padding: 2rem 0;
+  padding: .5rem 0;
 }
 .answers {
   border-top: 5px solid #999;
@@ -59,7 +59,7 @@ main.end {
 }
 .answer {
   text-align: center;
-  padding: 2rem 0;
+  padding: .5rem 0;
   background: #eee;
   cursor: pointer;
   transition: all .2s ease;
