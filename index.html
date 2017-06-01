@@ -11,7 +11,7 @@
 
 	<main id="app" v-bind:class="state" v-bind:data-errors="errors" v-bind:data-valids="valids" v-bind:data-answers="answers">
 
-		<div class="modal-mask" v-if="showModal">
+		<div class="modal" v-if="showModal">
 		  <div class="modal-wrapper">
 		    <div class="modal-container">
 
@@ -20,19 +20,33 @@
 		      </div>
 
 		      <div class="modal-body">
-		        <div><label>Operand <select v-model="operation">
-		        	<option value="+">+ Addition</option>
-					<option value="-">- Subtraction</option>
-					<option value="×">× Multiplication</option>
-					<!-- <option value="÷">÷ Division</option> -->
-				</select></label></div>
-				<div><label>First Number Range <input type="number" v-model.number="active_min"> - <input type="number" v-model.number="active_max"></label></div>
-				<div><label>Second Number <input type="number" v-model.number="passive_min"> - <input type="number" v-model.number="passive_max"></label></div>
+		        <div class="option">
+		        	<label>Operand 
+		        		<select v-model="operation" v-on:change="reset(false)">
+				        	<option value="+">+ Addition</option>
+							<option value="-">- Subtraction</option>
+							<option value="×">× Multiplication</option>
+							<!-- <option value="÷">÷ Division</option> -->
+						</select>
+					</label>
+				</div>
+				<div class="option">
+					<label>1st Range 
+						<input type="number" v-model.number="active_min" size="3"> - 
+						<input type="number" v-model.number="active_max" size="3">
+					</label>
+				</div>
+				<div class="option">
+					<label>2nd Range 
+						<input type="number" v-model.number="passive_min" size="3"> - 
+						<input type="number" v-model.number="passive_max" size="3">
+					</label>
+				</div>
 		      </div>
 
 		      <div class="modal-footer">
-		          <button class="modal-default-button" @click="reset">
-		            OK
+		          <button class="modal-default-button" @click="reset(true)" title="OK">
+		            <i class="fa fa-check"></i>
 		          </button>
 		      </div>
 
@@ -41,10 +55,10 @@
 		</div>
 
 		<div class="ui">
-			<div class="grade" v-text="grade"></div>
-			<button @click="getRandomValues">Pass</button>
-			<button @click="reset">Restart</button>
-			<button @click="showModal = true">Options</button>
+			<span class="grade button" v-text="grade"></span>
+			<button @click="getRandomValues" title="Pass"><i class="fa fa-chevron-right"></i></button>
+			<button @click="reset(true)" title="Restart"><i class="fa fa-refresh"></i></button>
+			<button @click="showModal = true" title="Options"><i class="fa fa-cog"></i></button>
 		</div>
 		<div class="terms">
 			<div class="term term1" v-text="active_val"></div>

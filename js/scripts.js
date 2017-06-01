@@ -106,11 +106,37 @@ var app = new Vue({
 				this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
 				this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
 			},
-			reset(){
-				this.showModal = false;
+			reset(closemodal){
+
+				this.showModal = !closemodal;
 				this.errors = 0;
 				this.valids = 0;
 				this.answers = 0;
+				//set ranges based on mode
+				switch(this.operation){
+					case '+':
+						this.active_min = 0;
+						this.active_max = 9;
+						this.passive_min = 0;
+						this.passive_max = 19;
+						break;
+					case '-':
+						this.active_min = 1;
+						this.active_max = 19;
+						this.passive_min = 0;
+						this.passive_max = 9;
+						break;
+					case '×':
+						this.active_min = 0;
+						this.active_max = 12;
+						this.passive_min = 0;
+						this.passive_max = 12;
+						break;
+					default:
+						//just leave alone
+						break;
+				}
+
 				this.getRandomValues();
 			}
 		},
@@ -144,13 +170,13 @@ var app = new Vue({
 
 			grade(){
 				var average = Math.round(this.valids / this.answers * 100);
-				if ( isNaN(average) ) average = '-';
+				if ( isNaN(average) ) average = '0';
 				return average;
 			}
 		},
 
 		mounted(){
-			this.reset();
+			this.reset(true);
 		}
 
 
