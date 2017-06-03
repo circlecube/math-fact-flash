@@ -1,8 +1,3 @@
-//register modal component
-Vue.component('modal', {
-	template: '#modal-template'
-});
-
 //app
 var app = new Vue({
 		el: '#app',
