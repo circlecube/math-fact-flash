@@ -30,7 +30,7 @@ main.valid {
   border-color: #99cc33;
 }
 main.error {
-  border-color: red;
+  border-color: #CC3214;
 }
 main.end {
   border-color: #000;
@@ -81,10 +81,10 @@ main.end {
   /*background: #ddd;*/
 }
 .answer.valid {
-  background: green;
+  background: #99cc33;
 }
 .answer.error {
-  background: red;
+  background: #CC3214;
 }
 
 
