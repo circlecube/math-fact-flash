@@ -2,8 +2,10 @@
 var app = new Vue({
 		el: '#app',
 		data: {
-			max_errors_allowed: 5,
-			pause_game_allowed: false,
+			state: 'on',	// valid, error, on, end
+			mode: 'game',	// 'game' - answer until correct. 
+							// 'test' - only one answer per question
+			showModal: false,
 			range_answer: 6,
 			active_val: '',
 			passive_val: '',
@@ -11,20 +13,17 @@ var app = new Vue({
 			active_max: 9,
 			passive_min: 0,
 			passive_max: 19,
-			range_total: [0,20],
-			init_timeout: 10000,
-			operation: '+', // '-', '/', '*'
+			operation: '+', // '-', '×', '÷'
 			errors: 0,
 			valids: 0,
 			answers: 0,
-			mode: 'game',	// 'game' - answer until correct. 
-							//	 'test' - only one answer per question
-			timer: false,	// to add a timer option
 			allow_negative: false,
-			fractions: false,
-			decimals: false,
-			state: 'on',	// valid, error, on, end
-			showModal: false,
+			// max_errors_allowed: 5,
+			// pause_game_allowed: false,
+			// fractions: false,
+			// decimals: false,
+			// init_timeout: 10000,
+			// timer: false,	// to add a timer option
 		},
 
 		methods: {
@@ -55,6 +54,7 @@ var app = new Vue({
 				return num;
 			},
 			getAnswer(){
+				//based on operation, calculate the correct answer
 				switch(this.operation){
 					case '+':
 						return this.active_val + this.passive_val;
@@ -69,7 +69,7 @@ var app = new Vue({
 				}
 			},
 			checkAnswer(i){
-				// get answer
+				// get correct answer
 				var correct = this.getAnswer();
 
 				if ( this.random_answers[i].value === correct ) {
@@ -107,7 +107,7 @@ var app = new Vue({
 				this.errors = 0;
 				this.valids = 0;
 				this.answers = 0;
-				//set ranges based on mode
+				//set ranges based on operation
 				switch(this.operation){
 					case '+':
 						this.active_min = 0;
