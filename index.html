@@ -30,6 +30,19 @@
 						</select>
 					</label>
 				</div>
+		        <div class="option">
+		        	<label>Mode 
+		        		<select v-model="mode" v-on:change="reset(false)">
+				        	<option value="game">Game</option>
+							<option value="test">Test</option>
+						</select>
+					</label>
+				</div>
+				<div class="option" v-if="mode == 'test'">
+					<label>Number of Cards 
+						<input type="number" v-model.number="total_cards" size="3">
+					</label>
+				</div>
 				<div class="option">
 					<label>1st Range 
 						<input type="number" v-model.number="active_min" size="3"> - 

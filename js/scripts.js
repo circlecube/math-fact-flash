@@ -4,7 +4,7 @@ var app = new Vue({
 		data: {
 			state: 'on',	// valid, error, on, end
 			mode: 'game',	// 'game' - answer until correct. 
-							// 'test' - only one answer per question
+							// 'test' - only one answer per question (limited question)
 			showModal: false,
 			range_answer: 6,
 			active_val: '',
@@ -19,6 +19,8 @@ var app = new Vue({
 			answers: 0,
 			allow_negative: false,
 			// max_errors_allowed: 5,
+			total_cards: 10,
+			current_card: 0,
 			// pause_game_allowed: false,
 			// fractions: false,
 			// decimals: false,
@@ -71,31 +73,78 @@ var app = new Vue({
 			checkAnswer(i){
 				// get correct answer
 				var correct = this.getAnswer();
-
-				if ( this.random_answers[i].value === correct ) {
-					// alert/('correct!');
-					this.valids++;
-					this.state = 'valid';
-					this.random_answers[i].state = 'valid';
-					setTimeout(this.newCard, 500);
-				} else {
-					this.errors++;
-					this.state = 'error';
-					this.random_answers[i].state = 'error';
-					this.badAnswer();
-					// alert('nope! ' + this.errors + ' incorrect.');
-				}
 				this.answers++;
+
+				//if game mode
+				if ( this.mode == 'game' ) {
+					// correct - load new card
+					if ( this.random_answers[i].value === correct ) {
+						// alert('correct!');
+						this.valids++;
+						this.state = 'valid';
+						this.random_answers[i].state = 'valid';
+						setTimeout(this.newCard, 500);
+					}
+					else { // incorrect - wait for correct			 
+						this.errors++;
+						this.state = 'error';
+						this.random_answers[i].state = 'error';
+						this.badAnswer();
+						// alert('nope! ' + this.errors + ' incorrect.');
+					}
+
+				} else { // test mode
+					// record correct answer
+					if ( this.random_answers[i].value === correct ) {
+						this.valids++;
+						this.state = 'valid';
+						this.random_answers[i].state = 'valid';
+					} else { //record incorrect answer
+						this.errors++;
+						this.state = 'error';
+						this.random_answers[i].state = 'error';
+					}
+
+					// load new card
+					this.current_card--;
+					setTimeout(this.newCard, 500);
+					
+				}
+				
+					
+
+
+				
+
+				 
 			},
 			newCard(){
-				//reset the values
-				this.getRandomValues();
-				this.state = 'on';
+				//if game mode
+				if ( this.mode == 'game' ) {
+					//reset the values
+					this.getRandomValues();
+					this.state = 'on';
+				} else { // test mode
+				// if cards are out
+				if ( this.current_card <= 0 ) {
+						this.getReport();
+						this.state = 'off';
+					} else {
+						//reset the values
+						this.getRandomValues();
+						this.state = 'on';
+					}
+				}
 			},
 			badAnswer(){
 				if ( this.errors > this.max_errors_allowed ) {
 					// this.state = 'end';
 				}
+			},
+			getReport(){
+				alert('You got '+this.grade+'% of '+this.total_cards+' correct!');
+				// this.reset(true);
+				this.showModal = true;
 			},
 			getRandomValues(){
 				this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
@@ -107,6 +156,8 @@ var app = new Vue({
 				this.errors = 0;
 				this.valids = 0;
 				this.answers = 0;
+				this.current_card = this.total_cards;
+
 				//set ranges based on operation
 				switch(this.operation){
 					case '+':
@@ -155,8 +206,8 @@ var app = new Vue({
 					} );	
 				}
 				
-				//make sure answers are unique
-				//randomize the answers
+				// make sure answers are unique
+				// and randomize the answers
 				answers.sort(function() { return 0.5 - Math.random() });
 
 				return answers;
