@@ -101,20 +101,21 @@ main.end {
   background-color: rgba(0, 0, 0, .5);
   display: table;
   transition: opacity .3s ease;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .modal-wrapper {
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .modal-container {
   min-width: 50vw;
-  width: 50%;
   min-height: 50vh;
+  width: 100%;
   margin: 0 auto;
-  padding: 3rem;
+  padding: 2rem;
+  box-sizing: border-box;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
@@ -128,13 +129,14 @@ main.end {
 }
 
 .modal-body {
-  padding: 2rem 0;
+  padding: 0;
 }
 .modal-footer {
   overflow: hidden;
 }
 .modal-default-button {
   float: right;
+  margin: 0;
 }
 
 .option {
@@ -142,11 +144,15 @@ main.end {
 }
 
 .modal select,
-.modal input {
+.modal input,
+.modal .button {
   font-size: 1.75rem;
 }
 input {
   width: 3em;
+}
+.modal select {
+  margin: 0 0 0 1rem;
 }
 
 button,
