@@ -10,9 +10,9 @@ var app = new Vue({
 			active_val: '',
 			passive_val: '',
 			active_min: 0,
-			active_max: 9,
+			active_max: 10,
 			passive_min: 0,
-			passive_max: 19,
+			passive_max: 10,
 			operation: '+', // '-', '×', '÷'
 			errors: 0,
 			valids: 0,
@@ -158,19 +158,23 @@ var app = new Vue({
 				this.answers = 0;
 				this.current_card = this.total_cards;
 
+				this.getRandomValues();
+			},
+			setDefaultRanges(){
+
 				//set ranges based on operation
 				switch(this.operation){
 					case '+':
 						this.active_min = 0;
-						this.active_max = 9;
+						this.active_max = 10;
 						this.passive_min = 0;
-						this.passive_max = 19;
+						this.passive_max = 10;
 						break;
 					case '-':
-						this.active_min = 1;
-						this.active_max = 19;
+						this.active_min = 10;
+						this.active_max = 20;
 						this.passive_min = 0;
-						this.passive_max = 9;
+						this.passive_max = 10;
 						break;
 					case '×':
 						this.active_min = 0;
@@ -183,7 +187,6 @@ var app = new Vue({
 						break;
 				}
 
-				this.getRandomValues();
 			}
 		},
 

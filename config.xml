@@ -2,8 +2,8 @@
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.circlecube.mathfactflash"
-        versionCode="20170926" 
-        version   = "2017.09.26">
+        versionCode="20170927" 
+        version   = "2017.09.27">
 
     <name>Math Facts Flash</name>
 
@@ -14,16 +14,22 @@
     <author href="http://circlecube.com" email="evan@circlecube.com">
         Evan Mullins 
     </author>
-    <gap:platform name="android" />
-    <gap:platform name="ios" />
 
-    <plugin name="cordova-plugin-whitelist" source="npm" />
-    <plugin name="cordova-plugin-x-socialsharing" source="npm" />
-    <plugin name="com.cmackay.plugins.googleanalytics" source="npm" />
+    <platform name="ios">
+    </platform>
+    <platform name="android">
+    </platform>
+
+    <!-- <plugin name="cordova-plugin-whitelist" source="npm" /> -->
+    <!-- <plugin name="cordova-plugin-x-socialsharing" source="npm" /> -->
+    <!-- <plugin name="com.cmackay.plugins.googleanalytics" source="npm" /> -->
 
     <preference name="orientation" value="portrait"/>
     <preference name="fullscreen" value="true" />
     <preference name="permissions" value="none"/>
+    
+    <preference name="android-minSdkVersion" value="16" />
+    <preference name="android-targetSdkVersion" value="23" />
 
     <platform name="android">  
         <allow-intent href="market:*" />  

@@ -18,7 +18,7 @@
 		      <div class="modal-body">
 		        <div class="option">
 		        	<label>Operand 
-		        		<select v-model="operation" v-on:change="reset(false)">
+		        		<select v-model="operation" v-on:change="setDefaultRanges()">
 				        	<option value="+">+ Addition</option>
 							<option value="-">- Subtraction</option>
 							<option value="×">× Multiplication</option>
