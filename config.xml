@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
+        xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.circlecube.mathfactflash"
         versionCode="20170927" 
         version   = "2017.09.27">
@@ -8,17 +9,25 @@
     <name>Math Facts Flash</name>
 
     <description>
-        Math Flash Cards to practice math facts! Try to get your highest score!
+        Flash Cards to practice Math Facts! Customize the operation and number ranges. 
+
+        Game mode will continue endlessly and test mode will have a set number of questions. Both modes give a score.
     </description>
 
-    <author href="http://circlecube.com" email="evan@circlecube.com">
-        Evan Mullins 
-    </author>
+    <author href="http://circlecube.com" email="evan@circlecube.com">Evan Mullins</author>
 
     <platform name="ios">
     </platform>
     <platform name="android">
     </platform>
+
+    <config-file platform="android" parent="/manifest" mode="merge">
+      <supports-screens android:anyDensity="true" android:resizeable="true" 
+        android:smallScreens="true" 
+        android:normalScreens="true" 
+        android:largeScreens="true" 
+        android:xlargeScreens="true" />
+    </config-file>
 
     <!-- <plugin name="cordova-plugin-whitelist" source="npm" /> -->
     <!-- <plugin name="cordova-plugin-x-socialsharing" source="npm" /> -->
@@ -27,9 +36,6 @@
     <preference name="orientation" value="portrait"/>
     <preference name="fullscreen" value="true" />
     <preference name="permissions" value="none"/>
-    
-    <preference name="android-minSdkVersion" value="16" />
-    <preference name="android-targetSdkVersion" value="23" />
 
     <platform name="android">  
         <allow-intent href="market:*" />  
