@@ -64,7 +64,7 @@
 					<i class="fa fa-check"></i>
 				</button>
 
-				<div class="log" v-bind:class="{ 'hide' : displaylogs }">
+				<div class="log" v-bind:class="{ 'hide' : !displaylogs }">
 					<ol>
 						<li v-for="log in logs">
 							<span class="operation">{{ log.operation }}</span>

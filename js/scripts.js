@@ -1,4 +1,15 @@
+/*
+
+ROADMAP:
+
+Add settings to localstorage
+Range sliders for max/min values
+Total cards input update to select list with preset numbers for quiz length
+
+*/
+
 //app
+
 var app = new Vue({
 		el: '#app',
 		data: {
@@ -25,7 +36,7 @@ var app = new Vue({
 			answers: 0,
 			allow_negative: false,
 			// max_errors_allowed: 5,
-			total_cards: 1,
+			total_cards: 20,
 			current_card: 0,
 			// pause_game_allowed: false,
 			// fractions: false,
@@ -167,11 +178,12 @@ var app = new Vue({
 					duration: this.duration,
 					time: new Date(),
 				};
-				alert(log.operation +'('+ log.total +') '+ log.grade +'% '+ log.duration + 's');
+				// alert(log.operation +'('+ log.total +') '+ log.grade +'% '+ log.duration + 's');
 				this.logs.unshift(log);
 				// localStorage.setItem('logs', this.logs);
 
 				this.showModal = true;
+				this.displaylog(true);
 			},
 			getRandomValues(){
 				this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
@@ -217,7 +229,8 @@ var app = new Vue({
 
 			},
 			displaylog(show){
-				this.displaylogs = !this.displaylogs;
+				if (typeof show === 'undefined') { show = !this.displaylogs; }
+				this.displaylogs = show;
 			},
 			clearlog(){
 				this.logs = [];
