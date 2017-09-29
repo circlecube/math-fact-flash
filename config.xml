@@ -3,8 +3,8 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.circlecube.mathfactflash"
-        versionCode="20170927" 
-        version   = "2017.09.27">
+        versionCode="20170929" 
+        version   = "2017.09.29">
 
     <name>Math Facts Flash</name>
 
@@ -14,7 +14,7 @@
         Game mode will continue endlessly and test mode will have a set number of questions. Both modes give a score.
     </description>
 
-    <author href="http://circlecube.com" email="evan@circlecube.com">Evan Mullins</author>
+    <author href="https://circlecube.com" email="evan@circlecube.com">Evan Mullins</author>
 
     <platform name="ios">
     </platform>
