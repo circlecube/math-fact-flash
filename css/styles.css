@@ -1,3 +1,13 @@
+/*
+green: #99cc33;
+lblue: #0DE7FF;
+dblue: #3399cc;
+aquag: #33cc99;
+purpl: #9933cc;
+red:   #CC3214;
+*/
+
+
 @font-face {
   font-family: 'marvinvisions';
   src: url('MarvinVisions-Bold.eot?v=4.6.3');
@@ -7,11 +17,15 @@
   font-weight: normal;
   font-style: normal;
 }
+
+.hide {
+  display: none;
+}
 body {
   font-size: 16px;
   font-family: 'marvinvisions';
 }
-main {
+.card {
   max-width: 600px;
   margin: 0 auto;
   border: 5px solid #999;
@@ -33,21 +47,22 @@ main {
   -o-user-select: none;
   user-select: none;
 }
-main.on {
+
+.card.on {
   border-color: #999;
 }
-main.valid {
+.card.valid {
   border-color: #99cc33;
 }
-main.error {
+.card.error {
   border-color: #CC3214;
 }
-main.end {
+.card.end {
   border-color: #000;
 }
 .ui {
   grid-area: ui;
-  padding: 2rem;
+  padding: .5rem;
   font-size: 1rem;
   text-align: center;
 }
@@ -97,12 +112,47 @@ main.end {
   background: #CC3214;
 }
 
+.answer[data-color] {
+  position: relative;
+}
+.answer[data-color]:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .25;
+  transition: .25s all ease;
+}
+.answer[data-color="1"]:after {
+  background: #99cc33;
+}
+.answer[data-color="2"]:after {
+  background: #0DE7FF;
+}
+.answer[data-color="3"]:after {
+  background: #3399cc;
+}
+.answer[data-color="4"]:after {
+  background: #33cc99;
+}
+.answer[data-color="5"]:after {
+  background: #9933cc;
+}
+.answer[data-color="6"]:after {
+  background: #CC3214;
+}
 
+.card.valid .answer[data-color]:after,
+.card.error .answer[data-color]:after {
+  opacity:0;
+}
 
 
 
 .modal {
-  position: fixed;
+  position: absolute;
   z-index: 9998;
   top: 0;
   left: 0;
@@ -160,7 +210,7 @@ main.end {
   font-family: 'marvinvisions';
 }
 input {
-  width: 3em;
+  width: 2.25em;
 }
 .modal select {
   margin: 0 0 0 1rem;
@@ -176,7 +226,7 @@ button,
   cursor: pointer;
   font-weight: normal;
   line-height: normal;
-  margin: 0 0 1.11111rem;
+  margin: 0 0 1.11rem;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -186,5 +236,20 @@ button,
   background-color: #99cc33;
   border-color: #99cc33;
   color: #FFFFFF;
+  outline: none;
   transition: background-color 300ms ease-out;
+}
+.modal-secondary-button {
+  background-color: #0DE7FF;
+  border-color: #0DE7FF;
+  color: #FFFFFF;
+}
+.modal-warning-button {
+  background-color: #3399cc;
+  border-color: #3399cc;
+  color: #FFFFFF;
+}
+
+.log li {
+
 }

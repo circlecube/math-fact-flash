@@ -3,7 +3,7 @@ var app = new Vue({
 		el: '#app',
 		data: {
 			state: 'on',	// valid, error, on, end
-			mode: 'game',	// 'game' - answer until correct. 
+			mode: 'test',	// 'game' - answer until correct. 
 							// 'test' - only one answer per question (limited question)
 			showModal: false,
 			range_answer: 6,
@@ -14,18 +14,29 @@ var app = new Vue({
 			passive_min: 0,
 			passive_max: 10,
 			operation: '+', // '-', '×', '÷'
+			operationlabel: {
+				'+': 'Addition',
+				'-': 'Subtraction',
+				'×': 'Multiplication',
+				'÷': 'Division'
+			},
 			errors: 0,
 			valids: 0,
 			answers: 0,
 			allow_negative: false,
 			// max_errors_allowed: 5,
-			total_cards: 10,
+			total_cards: 1,
 			current_card: 0,
 			// pause_game_allowed: false,
 			// fractions: false,
 			// decimals: false,
 			// init_timeout: 10000,
 			// timer: false,	// to add a timer option
+			starttime: 0,
+			duration: 0,
+			logs: localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [],
+			// logs: [],
+			displaylogs: true,
 		},
 
 		methods: {
@@ -49,11 +60,15 @@ var app = new Vue({
 				for (var i = 0; i < answers.length; i++){
 					if ( answers[i].value === num ) {
 						// if duplicate is found recursively call again
-				  		return this.random(answers, distance);
+						return this.random(answers, distance);
 					}
 				}
 
 				return num;
+			},
+			randomNumber(x){
+				if (typeof x === 'undefined') { x = 10; }
+		    	return Math.floor(Math.random() * x) + 1;
 			},
 			getAnswer(){
 				//based on operation, calculate the correct answer
@@ -142,8 +157,20 @@ var app = new Vue({
 				}
 			},
 			getReport(){
-				alert('You got '+this.grade+'% of '+this.total_cards+' correct!');
 				// this.reset(true);
+				this.endtime = new Date();
+				this.duration = moment(this.endtime).diff(moment(this.starttime), 'seconds');
+				var log = {
+					grade: this.grade,
+					total: this.total_cards,
+					operation: this.operationlabel[this.operation],
+					duration: this.duration,
+					time: new Date(),
+				};
+				alert(log.operation +'('+ log.total +') '+ log.grade +'% '+ log.duration + 's');
+				this.logs.unshift(log);
+				// localStorage.setItem('logs', this.logs);
+
 				this.showModal = true;
 			},
 			getRandomValues(){
@@ -157,6 +184,7 @@ var app = new Vue({
 				this.valids = 0;
 				this.answers = 0;
 				this.current_card = this.total_cards;
+				this.starttime = new Date();
 
 				this.getRandomValues();
 			},
@@ -187,6 +215,26 @@ var app = new Vue({
 						break;
 				}
 
+			},
+			displaylog(show){
+				this.displaylogs = !this.displaylogs;
+			},
+			clearlog(){
+				this.logs = [];
+				// localStorage.setItem('logs', []);
+			},
+			
+		},
+
+		watch: {
+			logs: function(){
+				localStorage.setItem('logs', JSON.stringify(this.logs));
+			}
+		},
+
+		filters: {
+			relativetime: function(time){
+				return moment(time).fromNow();
 			}
 		},
 

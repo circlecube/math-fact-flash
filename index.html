@@ -51,31 +51,52 @@
 						<input type="number" v-model.number="passive_max" size="3">
 					</label>
 				</div>
-		      </div>
+			  </div>
 
-		      <div class="modal-footer">
-		          <button class="modal-default-button" @click="reset(true)" title="OK">
-		            <i class="fa fa-check"></i>
-		          </button>
-		      </div>
+			  <div class="modal-footer">
+				<button class="modal-secondary-button" @click="displaylog()" title="View Log">
+					<i class="fa fa-list"></i>
+				</button>
+				<button class="modal-warning-button" @click="clearlog()" title="Clear Log">
+					<i class="fa fa-trash-o"></i>
+				</button>
+				<button class="modal-default-button" @click="reset(true)" title="OK">
+					<i class="fa fa-check"></i>
+				</button>
 
-		    </div>
+				<div class="log" v-bind:class="{ 'hide' : displaylogs }">
+					<ol>
+						<li v-for="log in logs">
+							<span class="operation">{{ log.operation }}</span>
+							<span class="grade">{{ log.grade }}</span>
+							<span class="total">{{ log.total }} cards</span> |
+							<span class="duration">{{ log.duration }} sec</span> | 
+							<span class="time">{{ log.time | relativetime }}</span>
+						</li>
+					</ol>
+				</div>
+			  </div>
+
+			</div>
 		  </div>
 		</div>
+		
+		<div class="card" v-bind:class="state" v-bind:data-errors="errors" v-bind:data-valids="valids" v-bind:data-answers="answers">
+			<div class="ui">
+				<button @click="showModal = true" title="Options"><i class="fa fa-cog"></i></button>
+				<div class="grade" v-text="grade"></div>
+				<!-- <button @click="getRandomValues" title="Pass"><i class="fa fa-chevron-right"></i></button> -->
+				<!-- <button @click="reset(true)" title="Restart"><i class="fa fa-refresh"></i></button> -->
+			</div>
+			<div class="terms">
+				<div class="term term1" v-text="active_val"></div>
+				<div class="term term2" v-text="passive_val"></div>
+			</div>
+			<div class="operand" v-text="operation"></div>
+			<div class="answers">
+				<div class="answer color_" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="(answer.state === 'on' ? checkAnswer(i) : null)" v-bind:data-color="randomNumber(6)"></div>
+			</div>
 
-		<div class="ui">
-			<span class="grade button" v-text="grade"></span>
-			<button @click="getRandomValues" title="Pass"><i class="fa fa-chevron-right"></i></button>
-			<button @click="reset(true)" title="Restart"><i class="fa fa-refresh"></i></button>
-			<button @click="showModal = true" title="Options"><i class="fa fa-cog"></i></button>
-		</div>
-		<div class="terms">
-			<div class="term term1" v-text="active_val"></div>
-			<div class="term term2" v-text="passive_val"></div>
-		</div>
-		<div class="operand" v-text="operation"></div>
-		<div class="answers">
-			<div class="answer" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="(answer.state === 'on' ? checkAnswer(i) : null)"></div>
 		</div>
 	</main>
 
