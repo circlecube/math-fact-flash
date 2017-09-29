@@ -1,5 +1,15 @@
+@font-face {
+  font-family: 'marvinvisions';
+  src: url('MarvinVisions-Bold.eot?v=4.6.3');
+  src: url('MarvinVisions-Bold.eot?#iefix&v=4.6.3') format('embedded-opentype'), 
+  url('MarvinVisions-Bold.woff2?v=4.6.3') format('woff2'), 
+  url('MarvinVisions-Bold.woff?v=4.6.3') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   font-size: 16px;
+  font-family: 'marvinvisions';
 }
 main {
   max-width: 600px;
@@ -120,7 +130,7 @@ main.end {
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
+  /*font-family: Helvetica, Arial, sans-serif;*/
 }
 
 .modal-header h3 {
@@ -147,6 +157,7 @@ main.end {
 .modal input,
 .modal .button {
   font-size: 1.75rem;
+  font-family: 'marvinvisions';
 }
 input {
   width: 3em;
