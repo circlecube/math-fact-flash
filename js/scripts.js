@@ -38,6 +38,7 @@ var app = new Vue({
 			// max_errors_allowed: 5,
 			total_cards: 20,
 			current_card: 0,
+			progressrecord: [],
 			// pause_game_allowed: false,
 			// fractions: false,
 			// decimals: false,
@@ -80,6 +81,9 @@ var app = new Vue({
 			randomNumber(x){
 				if (typeof x === 'undefined') { x = 10; }
 		    	return Math.floor(Math.random() * x) + 1;
+			},
+			progresswidthcss(total){
+				return 'width:' + (100 / this.total_cards) + '%;';
 			},
 			getAnswer(){
 				//based on operation, calculate the correct answer
@@ -130,6 +134,9 @@ var app = new Vue({
 						this.state = 'error';
 						this.random_answers[i].state = 'error';
 					}
+
+					//update progress
+					this.progressrecord.push(this.state);
 
 					// load new card
 					this.current_card--;
@@ -189,13 +196,14 @@ var app = new Vue({
 				this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
 				this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
 			},
-			reset(closemodal){
+			reset(closeit){
 
-				this.showModal = !closemodal;
+				this.showModal = !closeit;
 				this.errors = 0;
 				this.valids = 0;
 				this.answers = 0;
 				this.current_card = this.total_cards;
+				this.progressrecord = [];
 				this.starttime = new Date();
 
 				this.getRandomValues();

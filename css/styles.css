@@ -253,3 +253,36 @@ button,
 .log li {
 
 }
+
+
+
+.progressbar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1rem;
+  background: #eee;
+  opacity: .9;
+}
+.progressbar .bar {
+  height: 1rem;
+  display: inline-block;
+  background: #99cc33;
+}
+.progressbar .bar.error {
+  background: #CC3214;
+}
+.progressbar .grade {
+  position: absolute;
+  display: block;
+  top: -2rem;
+  right: 0;
+  height: 1rem;
+  width: 5%;
+  padding: .5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: right;
+}
+
