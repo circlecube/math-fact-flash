@@ -54,27 +54,33 @@
 			  </div>
 
 			  <div class="modal-footer">
+			  	<div class="log" v-bind:class="{ 'hide' : !displaylogs }">
+			  		<h3>Activity Log</h3>
+			  		<ol>
+			  			<li v-for="log in logs">
+			  				<span class="operation">{{ log.operation }}</span>
+			  				<span class="grade">{{ log.grade }}</span>
+			  				<span class="total">{{ log.total }} cards</span> |
+			  				<span class="duration">{{ log.duration }} sec</span> | 
+			  				<span class="time">{{ log.time | relativetime }}</span>
+			  			</li>
+			  		</ol>
+			  	</div>
+
 				<button class="modal-secondary-button" @click="displaylog()" title="View Log">
 					<i class="fa fa-list"></i>
 				</button>
 				<button class="modal-warning-button" @click="clearlog()" title="Clear Log">
 					<i class="fa fa-trash-o"></i>
 				</button>
-				<button class="modal-default-button" @click="reset(true)" title="OK">
+
+				<button class="modal-default-button modal-button-right" @click="reset(true)" title="OK">
 					<i class="fa fa-check"></i>
 				</button>
+				<button class="modal-error-button modal-button-right" @click="closemodal()" title="Cancel">
+					<i class="fa fa-times"></i>
+				</button>
 
-				<div class="log" v-bind:class="{ 'hide' : !displaylogs }">
-					<ol>
-						<li v-for="log in logs">
-							<span class="operation">{{ log.operation }}</span>
-							<span class="grade">{{ log.grade }}</span>
-							<span class="total">{{ log.total }} cards</span> |
-							<span class="duration">{{ log.duration }} sec</span> | 
-							<span class="time">{{ log.time | relativetime }}</span>
-						</li>
-					</ol>
-				</div>
 			  </div>
 
 			</div>
@@ -94,7 +100,7 @@
 			</div>
 			<div class="operand" v-text="operation"></div>
 			<div class="answers">
-				<div class="answer color_" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="(answer.state === 'on' ? checkAnswer(i) : null)" v-bind:data-color="randomNumber(6)"></div>
+				<div class="answer color_" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="(answer.state === 'on' ? checkAnswer(i) : null)" v-bind:data-color="randomNumber(10)"></div>
 			</div>
 
 		</div>

@@ -62,9 +62,11 @@ body {
 }
 .ui {
   grid-area: ui;
-  padding: .5rem;
+  padding: 0;
   font-size: 1rem;
-  text-align: center;
+  margin: -1rem 0 0 -1rem;
+  border-radius: 8px;
+  overflow: hidden;
 }
 .grade {
 
@@ -82,7 +84,7 @@ body {
 .operand {
   grid-area: operand;
   text-align: center;
-  padding: .5rem 0;
+  padding: 4rem 0 0;
 }
 .answers {
   border-top: 5px solid #999;
@@ -143,7 +145,18 @@ body {
 .answer[data-color="6"]:after {
   background: #CC3214;
 }
-
+.answer[data-color="7"]:after {
+  background: #0DE7FF;
+}
+.answer[data-color="8"]:after {
+  background: #3399cc;
+}
+.answer[data-color="9"]:after {
+  background: #33cc99;
+}
+.answer[data-color="10"]:after {
+  background: #9933cc;
+}
 .card.valid .answer[data-color]:after,
 .card.error .answer[data-color]:after {
   opacity:0;
@@ -194,10 +207,6 @@ body {
 .modal-footer {
   overflow: hidden;
 }
-.modal-default-button {
-  float: right;
-  margin: 0;
-}
 
 .option {
   padding: 1rem 0;
@@ -226,28 +235,41 @@ button,
   cursor: pointer;
   font-weight: normal;
   line-height: normal;
-  margin: 0 0 1.11rem;
+  margin: 0;
   position: relative;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   padding: 0.5rem 1rem 0.6rem 1rem;
   font-size: 1.25rem;
-  background-color: #99cc33;
-  border-color: #99cc33;
+  background-color: #999;
+  border-color: #999;
   color: #FFFFFF;
   outline: none;
   transition: background-color 300ms ease-out;
 }
+.modal button {
+  margin: 0 .25rem;
+  float: left;
+}
+.modal-button-right {
+  float: right !important;
+}
+.modal-default-button {
+  background-color: #99cc33;
+  border-color: #99cc33;
+}
 .modal-secondary-button {
   background-color: #0DE7FF;
   border-color: #0DE7FF;
-  color: #FFFFFF;
 }
 .modal-warning-button {
   background-color: #3399cc;
   border-color: #3399cc;
-  color: #FFFFFF;
+}
+.modal-error-button {
+  background-color: #CC3214;
+  border-color: #CC3214;
 }
 
 .log li {

@@ -208,6 +208,9 @@ var app = new Vue({
 
 				this.getRandomValues();
 			},
+			closemodal(){
+				this.showModal = false;
+			},
 			setDefaultRanges(){
 
 				//set ranges based on operation
