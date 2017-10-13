@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<title>Math Flash Cards</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="css/font-awesome-4.6.3/css/font-awesome.min.css">
-	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.min.css">
 </head>
 <body>
 
@@ -17,7 +17,7 @@
 
 			  <div class="modal-body">
 				<div class="option">
-					<label>Operand 
+					<label>Operation 
 						<select v-model="operation" v-on:change="setDefaultRanges()">
 							<option value="+">+ Addition</option>
 							<option value="-">- Subtraction</option>
@@ -54,18 +54,27 @@
 			  </div>
 
 			  <div class="modal-footer">
-			  	<div class="log" v-bind:class="{ 'hide' : !displaylogs }">
-			  		<h3>Activity Log</h3>
-			  		<ol>
-			  			<li v-for="log in logs">
-			  				<span class="operation">{{ log.operation }}</span>
-			  				<span class="grade">{{ log.grade }}</span>
-			  				<span class="total">{{ log.total }} cards</span> |
-			  				<span class="duration">{{ log.duration }} sec</span> | 
-			  				<span class="time">{{ log.time | relativetime }}</span>
-			  			</li>
-			  		</ol>
-			  	</div>
+			  	<table class="log" v-bind:class="{ 'hide' : !displaylogs }">
+			  		<thead>
+			  			<tr><th colspan="5">Activity Log</th></tr>
+			  			<tr>
+			  				<td>Operation</td>
+			  				<td>Total</td>
+			  				<td>Grade</td>
+			  				<td>Duration</td>
+			  				<td>Time</td>
+		  				</tr>
+			  		</thead>
+			  		<tbody>
+				  		<tr v-for="log in logs">
+			  				<td class="operation">{{ log.operation }}</td>
+			  				<td class="total">{{ log.total }}</td>
+			  				<td class="grade">{{ log.grade }}</td>
+			  				<td class="duration">{{ log.duration }} sec</td>
+			  				<td class="time">{{ log.time | relativetime }}</td>
+				  		</tr>
+				  	</tbody>
+			  	</table>
 
 				<button class="modal-secondary-button" @click="displaylog()" title="View Log">
 					<i class="fa fa-list"></i>
@@ -112,8 +121,7 @@
 
 	</main>
 
-	<script src="js/vue-dev.2.3.3.js"></script>
-	<script src="js/moment.min.js"></script>
-	<script src="js/scripts.js"></script>
+	<script src="js/vendors.min.js"></script>
+	<script src="js/scripts.min.js"></script>
 </body>
 </html>
