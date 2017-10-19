@@ -20,6 +20,8 @@ var app = new Vue({
 			range_answer: 6,
 			active_val: '',
 			passive_val: '',
+			actives: '0-10',
+			passives: '0-10',
 			active_min: 0,
 			active_max: 10,
 			passive_min: 0,
@@ -49,6 +51,7 @@ var app = new Vue({
 			logs: localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [],
 			// logs: [],
 			displaylogs: true,
+			infomode: false,
 		},
 
 		methods: {
@@ -144,11 +147,6 @@ var app = new Vue({
 					
 				}
 				
-					
-
-
-				
-
 				 
 			},
 			newCard(){
@@ -211,32 +209,45 @@ var app = new Vue({
 			closemodal(){
 				this.showModal = false;
 			},
+			toggle(v){
+				// console.log(v, this.v);
+				v = !v;
+			},
+			toggleinfomode(){
+				this.infomode = !this.infomode;
+			},
 			setDefaultRanges(){
 
 				//set ranges based on operation
 				switch(this.operation){
 					case '+':
-						this.active_min = 0;
-						this.active_max = 10;
-						this.passive_min = 0;
-						this.passive_max = 10;
+						this.actives = '0-10';
+						this.passives = '0-10';
 						break;
 					case '-':
-						this.active_min = 10;
-						this.active_max = 20;
-						this.passive_min = 0;
-						this.passive_max = 10;
+						this.actives = '10-20';
+						this.passives = '0-10';
 						break;
 					case '×':
-						this.active_min = 0;
-						this.active_max = 12;
-						this.passive_min = 0;
-						this.passive_max = 12;
+						this.actives = '0-12';
+						this.passives = '0-12';
 						break;
 					default:
 						//just leave alone
 						break;
 				}
+				this.setRanges();
+			},
+			setRanges(){
+				//set ranges based on values of the select lists for active and passive numbers
+				//active split
+				let vals = this.actives.split('-');
+				this.active_min = parseInt( vals[0] );
+				this.active_max = parseInt( vals[1] );
+
+				vals = this.passives.split('-');
+				this.passive_min = parseInt( vals[0] );
+				this.passive_max = parseInt( vals[1] );
 
 			},
 			displaylog(show){

@@ -1,11 +1,413 @@
-
+$color_white: #fff;
+$color_light: #eee;
 $color_green: #99cc33;
 $color_lblue: #0DE7FF;
 $color_dblue: #3399cc;
 $color_aquag: #33cc99;
 $color_purpl: #9933cc;
 $color_red:   #CC3214;
+$color_gray:  #999999;
 
 
-@import "app";
+
+
+@font-face {
+  font-family: 'marvinvisions';
+  src: url('../fonts/MarvinVisions/MarvinVisions-Bold.eot?v=4.6.3');
+  src: url('../fonts/MarvinVisions/MarvinVisions-Bold.eot?#iefix&v=4.6.3') format('embedded-opentype'), 
+  url('../fonts/MarvinVisions/MarvinVisions-Bold.woff2?v=4.6.3') format('woff2'), 
+  url('../fonts/MarvinVisions/MarvinVisions-Bold.woff?v=4.6.3') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.hide {
+  display: none;
+}
+body {
+  font-size: 16px;
+  font-family: 'marvinvisions';
+}
+.card {
+  max-width: 600px;
+  margin: 0 auto;
+  border: 5px solid $color_gray;
+  border-radius: 1rem;
+  padding: 1rem;
+  // display: grid;
+  // grid-template-columns: 50% 50%;
+  // grid-template-rows: auto;
+  // grid-column-gap: 1rem;
+  // grid-row-gap: 1rem;
+  // grid-template-areas: "ui term"
+  //                      "operand term"
+  //                      "answer answer"
+  //                      "answer answer";
+  font-size: 5rem;
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+  -o-user-select: none;
+  user-select: none;
+  overflow: hidden;
+}
+
+.card.on {
+  border-color: $color_gray;
+}
+.card.valid {
+  border-color: $color_green;
+}
+.card.error {
+  border-color: $color_red;
+}
+.card.end {
+  border-color: $color_purpl;
+}
+.ui {
+  grid-area: ui;
+  padding: 0;
+  font-size: 1rem;
+  margin: -1rem 0 0 -1rem;
+  // border-radius: 8px;
+  border-bottom-right-radius: .75rem;
+  overflow: hidden;
+  float: left;
+  // width: 50%;
+}
+.grade {
+
+}
+.grade:after {
+  content: '%';
+}
+.terms {
+  grid-area: term;
+  float: right;
+  width: 50%;
+}
+.term {
+  text-align: center;
+  padding: .5rem 0;
+  width: 100%;
+}
+.operand {
+  grid-area: operand;
+  text-align: center;
+  padding: 6rem 0 0;
+  float: left;
+  // width: 50%;
+}
+.answers {
+  border-top: 5px solid $color_gray;
+  grid-area: answer;
+  // display: grid;
+  // grid-template-columns: auto auto;
+  // grid-template-rows: auto;
+  // grid-column-gap: 1rem;
+  // grid-row-gap: 1rem;
+  padding: 1rem 0 0;
+  margin: 0 1rem 0 0;
+  width: 100%;
+  clear: both;
+}
+.answer {
+  text-align: center;
+  padding: .75rem 0;
+  background: $color_light;
+  cursor: pointer;
+  transition: all .2s ease;
+  width: 48.5%;
+  margin: 0;
+  float: left;
+
+  &:first-child {
+  	margin-bottom: 3%;
+  }
+  &:nth-child(odd) {
+  	margin-right: 3%;
+  }
+}
+.answer:hover {
+  /*background: #ddd;*/
+}
+.answer.valid {
+  background: $color_green;
+}
+.answer.error {
+  background: $color_red;
+}
+
+.answer[data-color] {
+  position: relative;
+}
+.answer[data-color]:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .25;
+  transition: .25s all ease;
+}
+.answer[data-color="1"]:after {
+  background: $color_green;
+}
+.answer[data-color="2"]:after {
+  background: $color_lblue;
+}
+.answer[data-color="3"]:after {
+  background: $color_dblue;
+}
+.answer[data-color="4"]:after {
+  background: $color_aquag;
+}
+.answer[data-color="5"]:after {
+  background: $color_purpl;
+}
+.answer[data-color="6"]:after {
+  background: $color_red;
+}
+.answer[data-color="7"]:after {
+  background: $color_lblue;
+}
+.answer[data-color="8"]:after {
+  background: $color_dblue;
+}
+.answer[data-color="9"]:after {
+  background: $color_aquag;
+}
+.answer[data-color="10"]:after {
+  background: $color_purpl;
+}
+.card.valid .answer[data-color]:after,
+.card.error .answer[data-color]:after {
+  opacity:0;
+}
+
+
+
+.modal {
+  position: absolute;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+  font-size: 1.5rem;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.modal-container {
+  min-width: 50vw;
+  min-height: 50vh;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
+  background-color: $color_white;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  /*font-family: Helvetica, Arial, sans-serif;*/
+}
+
+.modal-body h3 {
+  text-align: center;
+  margin:0;
+}
+
+.modal-body {
+  padding: 1rem;
+  // max-width: 24rem;
+  margin: 0 auto;
+  background: rgba( $color_purpl, .05);
+  // font-family: sans-serif;
+}
+.modal-footer {
+  overflow: hidden;
+}
+
+.option {
+  padding: 1rem 0;
+
+  span {
+  	display: none;
+  }
+
+  &.operand {
+  	margin-top: 4.5rem;
+  	width: 50%;
+  	text-align: right;
+  }
+
+  &.mode {
+  	clear: both;
+  	margin-top: .5rem;
+  	border-top: 1px solid $color_gray;
+  }
+  &.mode,
+  &.number {
+  	text-align: center;
+  }
+}
+
+.modal select,
+.modal input,
+.modal .button {
+  font-size: 1.75rem;
+  font-family: 'marvinvisions';
+}
+input {
+  width: 2.25em;
+}
+.modal select {
+  margin: 0 0 0 1rem;
+}
+
+button,
+.button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 0;
+  border-style: solid;
+  border-width: 0;
+  cursor: pointer;
+  font-weight: normal;
+  line-height: normal;
+  margin: 0;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  padding: 0.5rem 1rem 0.6rem 1rem;
+  font-size: 1.25rem;
+  background-color: $color_gray;
+  border-color: $color_gray;
+  color: $color_white;
+  outline: none;
+  transition: background-color 300ms ease-out;
+}
+.modal button {
+  margin: 0 .25rem;
+  float: left;
+}
+.modal-button-right {
+  float: right !important;
+}
+.modal-default-button {
+  background-color: $color_green;
+  border-color: $color_green;
+}
+.modal-secondary-button {
+  background-color: $color_lblue;
+  border-color: $color_lblue;
+}
+.modal-warning-button {
+  background-color: $color_dblue;
+  border-color: $color_dblue;
+}
+.modal-error-button {
+  background-color: $color_red;
+  border-color: $color_red;
+}
+.modal-info-button {
+  background-color: rgba($color_gray, .5);
+  border-color: rgba($color_gray, .5);
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+  display: inline-block;
+  float: none !important;
+  padding: 0;
+  vertical-align: text-bottom;
+}
+
+.modal-footer {
+
+	h3 {
+		text-align: center;
+		margin: 1rem 0 0;
+	}
+}
+
+dl {
+	font-size: .8rem;
+	font-family: sans-serif;
+	
+	dt {
+		font-weight: bold;
+	}
+
+	dd {
+		margin: 0 0 .5rem;
+	}
+}
+
+.log {
+	font-size: 1rem;
+	font-family: sans-serif;
+	width: 100%;
+	border-spacing: 0px;
+	margin: 0 0 1rem;
+
+	thead {
+		background: rgba($color_lblue, .5);
+	}
+	tbody {
+		tr:nth-child(odd) {
+			background: rgba($color_gray, .05);
+		}
+		tr:nth-child(even) {
+			background: rgba($color_lblue, .15);
+		}
+	}
+	th,
+	td {
+		padding: .5rem;
+	}
+}
+
+
+
+.progressbar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1rem;
+  background: $color_light;
+  opacity: .9;
+}
+.progressbar .bar {
+  height: 1rem;
+  display: inline-block;
+  background: $color_green;
+}
+.progressbar .bar.error {
+  background: $color_red;
+}
+.progressbar .grade {
+  position: absolute;
+  display: block;
+  top: -2rem;
+  right: 0;
+  height: 1rem;
+  width: 5%;
+  padding: .5rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: right;
+}
+
+
 
