@@ -16,53 +16,89 @@
 				<div class="modal-container">
 
 			  <div class="modal-body">
-				<div class="option">
-					<label>Operation 
+			  	<h3>Options</h3>
+			  	<div class="terms">
+			  		<div class="option term">
+						<label><span>Top: </span>
+							<select v-model="actives" v-on:change="setRanges()">
+								<option value="0-10">0-10</option>
+								<option value="0-12">0-12</option>
+								<option value="0-20">0-20</option>
+								<option value="10-20">10-20</option>
+								<option value="0-50">0-50</option>
+								<option value="0-100">0-100</option>
+							</select>
+						</label>
+					</div>
+					<div class="option term">
+						<label><span>Bottom: </span>
+							<select v-model="passives" v-on:change="setRanges()">
+								<option value="0-10">0-10</option>
+								<option value="0-12">0-12</option>
+								<option value="0-20">0-20</option>
+								<option value="10-20">10-20</option>
+								<option value="0-50">0-50</option>
+								<option value="0-100">0-100</option>
+							</select>
+						</label>
+					</div>
+				</div>
+
+				<div class="option operand">
+					<label><span>Operation: </span>
 						<select v-model="operation" v-on:change="setDefaultRanges()">
-							<option value="+">+ Addition</option>
-							<option value="-">- Subtraction</option>
-							<option value="×">× Multiplication</option>
-							<!-- <option value="÷">÷ Division</option> -->
+							<option value="+">+</option>
+							<option value="-">-</option>
+							<option value="×">×</option>
+							<!-- <option value="÷">÷</option> -->
 						</select>
 					</label>
 				</div>
-				<div class="option">
-					<label>Mode 
+
+				<div class="option mode">
+					<label><span>Mode: </span>
 						<select v-model="mode" v-on:change="reset(false)">
-							<option value="game">Game</option>
-							<option value="test">Test</option>
+							<option value="game">Game Mode</option>
+							<option value="test">Test Mode</option>
+						</select>
+						
+						<button class="modal-info-button" @click="toggleinfomode()" title="?"><i class="fa fa-info"></i></button>
+
+						<dl class="infomode"  v-if="infomode == true">
+							<dt>Game Mode</dt>
+							<dd>Play will continue forever. This is for practicing.</dd>
+							
+							<dt>Test Mode</dt>
+							<dd>Set a certian number of cards and receive a score.</dd>
+						</dl>
+
+					</label>
+				</div>
+				<div class="option number" v-if="mode == 'test'">
+					<label><span>Number of Cards: </span>
+						<select v-model.number="total_cards">
+							<option value="5">5 cards</option>
+							<option value="10">10 cards</option>
+							<option value="20">20 cards</option>
+							<option value="25">25 cards</option>
+							<option value="50">50 cards</option>
+							<option value="100">100 cards</option>
 						</select>
 					</label>
 				</div>
-				<div class="option" v-if="mode == 'test'">
-					<label>Number of Cards 
-						<input type="number" v-model.number="total_cards" size="3">
-					</label>
-				</div>
-				<div class="option">
-					<label>Top:
-						<input type="number" v-model.number="active_min" size="3"> - 
-						<input type="number" v-model.number="active_max" size="3">
-					</label>
-				</div>
-				<div class="option">
-					<label>Bottom:
-						<input type="number" v-model.number="passive_min" size="3"> - 
-						<input type="number" v-model.number="passive_max" size="3">
-					</label>
-				</div>
+				
 			  </div>
 
 			  <div class="modal-footer">
+			  	<h3 v-bind:class="{ 'hide' : !displaylogs }">Activity Log</h3>
 			  	<table class="log" v-bind:class="{ 'hide' : !displaylogs }">
 			  		<thead>
-			  			<tr><th colspan="5">Activity Log</th></tr>
 			  			<tr>
-			  				<td>Operation</td>
-			  				<td>Total</td>
-			  				<td>Grade</td>
-			  				<td>Duration</td>
-			  				<td>Time</td>
+			  				<th>Operation</th>
+			  				<th>Total</th>
+			  				<th>Grade</th>
+			  				<th>Duration</th>
+			  				<th>Time</th>
 		  				</tr>
 			  		</thead>
 			  		<tbody>
@@ -99,9 +135,6 @@
 		<div class="card" v-bind:class="state" v-bind:data-errors="errors" v-bind:data-valids="valids" v-bind:data-answers="answers">
 			<div class="ui">
 				<button @click="showModal = true" title="Options"><i class="fa fa-cog"></i></button>
-				
-				<!-- <button @click="getRandomValues" title="Pass"><i class="fa fa-chevron-right"></i></button> -->
-				<!-- <button @click="reset(true)" title="Restart"><i class="fa fa-refresh"></i></button> -->
 			</div>
 			<div class="terms">
 				<div class="term term1" v-text="active_val"></div>

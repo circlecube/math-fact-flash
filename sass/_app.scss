@@ -202,20 +202,24 @@ body {
   margin: 0 auto;
   padding: 2rem;
   box-sizing: border-box;
-  background-color: #fff;
+  background-color: $color_white;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   /*font-family: Helvetica, Arial, sans-serif;*/
 }
 
-.modal-header h3 {
-  margin-top: 0;
-  color: #99cc33;
+.modal-body h3 {
+  text-align: center;
+  margin:0;
 }
 
 .modal-body {
-  padding: 0;
+  padding: 1rem;
+  // max-width: 24rem;
+  margin: 0 auto;
+  background: rgba( $color_purpl, .05);
+  // font-family: sans-serif;
 }
 .modal-footer {
   overflow: hidden;
@@ -223,6 +227,26 @@ body {
 
 .option {
   padding: 1rem 0;
+
+  span {
+  	display: none;
+  }
+
+  &.operand {
+  	margin-top: 4.5rem;
+  	width: 50%;
+  	text-align: right;
+  }
+
+  &.mode {
+  	clear: both;
+  	margin-top: .5rem;
+  	border-top: 1px solid $color_gray;
+  }
+  &.mode,
+  &.number {
+  	text-align: center;
+  }
 }
 
 .modal select,
