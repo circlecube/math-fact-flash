@@ -1,10 +1,8 @@
 /*
 
 ROADMAP:
-
 Add settings to localstorage
-Range sliders for max/min values
-Total cards input update to select list with preset numbers for quiz length
+Options styled as back of card
 
 */
 
@@ -13,10 +11,10 @@ Total cards input update to select list with preset numbers for quiz length
 var app = new Vue({
 		el: '#app',
 		data: {
+			cardstate: 'back', // front, back/flipped
 			state: 'on',	// valid, error, on, end
-			mode: 'test',	// 'game' - answer until correct. 
+			mode: 'test',	// 'practice' - answer until correct. 
 							// 'test' - only one answer per question (limited question)
-			showModal: false,
 			range_answer: 6,
 			active_val: '',
 			passive_val: '',
@@ -36,12 +34,12 @@ var app = new Vue({
 			errors: 0,
 			valids: 0,
 			answers: 0,
-			allow_negative: false,
-			// max_errors_allowed: 5,
 			total_cards: 20,
 			current_card: 0,
 			progressrecord: [],
-			// pause_game_allowed: false,
+			allow_negative: false,
+			// max_errors_allowed: 5,
+			// pause_allowed: false,
 			// fractions: false,
 			// decimals: false,
 			// init_timeout: 10000,
@@ -49,8 +47,7 @@ var app = new Vue({
 			starttime: 0,
 			duration: 0,
 			logs: localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [],
-			// logs: [],
-			displaylogs: true,
+			displaylogs: false,
 			infomode: false,
 		},
 
@@ -83,10 +80,27 @@ var app = new Vue({
 			},
 			randomNumber(x){
 				if (typeof x === 'undefined') { x = 10; }
-		    	return Math.floor(Math.random() * x) + 1;
+				return Math.floor(Math.random() * x) + 1;
+			},
+			flipcard(){
+				// console.log('flipcard');
+				if (this.cardstate === 'front') { 
+					this.cardstate = 'back';
+				} else {
+					this.cardstate = 'front';
+					this.displaylogs = false;
+				}
+
+				if (this.state === 'off'){
+					this.reset();
+				}
 			},
 			progresswidthcss(total){
-				return 'width:' + (100 / this.total_cards) + '%;';
+				if ( this.mode === 'practice' ) {
+					return 'width:' + (100 / this.current_card) + '%;';
+				} else {
+					return 'width:' + (100 / this.total_cards) + '%;';
+				}
 			},
 			getAnswer(){
 				//based on operation, calculate the correct answer
@@ -106,10 +120,12 @@ var app = new Vue({
 			checkAnswer(i){
 				// get correct answer
 				var correct = this.getAnswer();
+				console.log('checkAnswer', i , correct);
+
 				this.answers++;
 
-				//if game mode
-				if ( this.mode == 'game' ) {
+				//if practice mode
+				if ( this.mode === 'practice' ) {
 					// correct - load new card
 					if ( this.random_answers[i].value === correct ) {
 						// alert('correct!');
@@ -125,6 +141,11 @@ var app = new Vue({
 						this.badAnswer();
 						// alert('nope! ' + this.errors + ' incorrect.');
 					}
+
+					this.current_card++;
+
+					//update progress
+					this.progressrecord.push(this.state);
 
 				} else { // test mode
 					// record correct answer
@@ -150,8 +171,8 @@ var app = new Vue({
 				 
 			},
 			newCard(){
-				//if game mode
-				if ( this.mode == 'game' ) {
+				//if practice mode
+				if ( this.mode === 'practice' ) {
 					//reset the values
 					this.getRandomValues();
 					this.state = 'on';
@@ -173,7 +194,6 @@ var app = new Vue({
 				}
 			},
 			getReport(){
-				// this.reset(true);
 				this.endtime = new Date();
 				this.duration = moment(this.endtime).diff(moment(this.starttime), 'seconds');
 				var log = {
@@ -187,27 +207,31 @@ var app = new Vue({
 				this.logs.unshift(log);
 				// localStorage.setItem('logs', this.logs);
 
-				this.showModal = true;
+				this.flipcard();
 				this.displaylog(true);
 			},
 			getRandomValues(){
 				this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
 				this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
 			},
-			reset(closeit){
-
-				this.showModal = !closeit;
+			reset(){
+				this.state = 'on';
+				this.flipcard();
 				this.errors = 0;
 				this.valids = 0;
 				this.answers = 0;
-				this.current_card = this.total_cards;
+				if ( this.mode === 'practice' ) {
+					this.current_card = 0;
+				} else {
+					this.current_card = this.total_cards;
+				}
 				this.progressrecord = [];
 				this.starttime = new Date();
 
 				this.getRandomValues();
 			},
 			closemodal(){
-				this.showModal = false;
+				flipcard();
 			},
 			toggle(v){
 				// console.log(v, this.v);
@@ -308,7 +332,7 @@ var app = new Vue({
 		},
 
 		mounted(){
-			this.reset(true);
+			this.reset();
 		}
 
 
