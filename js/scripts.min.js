@@ -120,7 +120,7 @@ var app = new Vue({
 			checkAnswer(i){
 				// get correct answer
 				var correct = this.getAnswer();
-				console.log('checkAnswer', i , correct);
+				// console.log('checkAnswer', i , correct);
 
 				this.answers++;
 
@@ -158,7 +158,7 @@ var app = new Vue({
 						this.state = 'error';
 						this.random_answers[i].state = 'error';
 					}
-
+					// console.log('checkAnswer1', this.state);
 					//update progress
 					this.progressrecord.push(this.state);
 
@@ -315,6 +315,7 @@ var app = new Vue({
 						state: 'on'
 					} );	
 				}
+				// console.table(answers);
 				
 				// make sure answers are unique
 				// and randomize the answers

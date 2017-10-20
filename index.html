@@ -79,11 +79,11 @@
 						<div class="option mode">
 							<!-- <h4>App Options</h4> -->
 							<label><span>Mode: </span>
-								<button class="info" @click="toggleinfomode()" title="?"><i class="fa fa-info"></i></button>
 								<select v-model="mode">
 									<option value="practice">Practice Mode</option>
 									<option value="test">Test Mode</option>
 								</select>
+								<button class="info" @click="toggleinfomode()" title="?"><i class="fa fa-info"></i></button>
 								
 								<dl class="infomode" v-if="infomode == true">
 									<dt>Practice Mode</dt>
@@ -115,7 +115,7 @@
 						<table class="log">
 							<thead>
 								<tr>
-									<th>Operation</th>
+									<th>Type</th>
 									<th>Total</th>
 									<th>Grade</th>
 									<th>Duration</th>

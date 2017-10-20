@@ -57,7 +57,7 @@ button.lblue,.button.lblue{background-color:#0de7ff;border-color:#0de7ff}
 button.dblue,.button.dblue{background-color:#39c;border-color:#39c}
 button.red,.button.red{background-color:#cc3214;border-color:#cc3214}
 button.gray,.button.gray{background-color:#999;border-color:#999}
-button.info,.button.info{background-color:rgba(153,153,153,0.5);border-color:rgba(153,153,153,0.5);border-radius:50%;width:2rem;height:2rem;font-size:1rem;display:inline-block;padding:0;position:relative}
+button.info,.button.info{background-color:rgba(153,153,153,0.5);border-color:rgba(153,153,153,0.5);border-radius:50%;width:1.5rem;height:1.5rem;font-size:1rem;display:block;padding:0;position:relative}
 .log button.info{float:right}
 .mode{float:left;width:50%}
 .number{float:right;width:50%;padding:0 20%}
