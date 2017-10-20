@@ -7,10 +7,10 @@ body{font-size:16px;font-family:'marvinvisions'}
 .card{width:100%;height:100%;position:absolute;padding:100% 0 0;font-size:5rem;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .card figure{margin:0;display:block;position:absolute;width:100%;height:100%;top:0;left:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;padding:1rem;-webkit-transition:all .75s ease;transition:all .75s ease;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;border:5px solid #999;border-radius:1rem;-webkit-transform:none;-ms-transform:none;transform:none}
 .card figure.back{background:#fff}
-.card[data-card="front"] .front{-webkit-transform:none;-ms-transform:none;transform:none}
+.card[data-card="front"] .front{-webkit-transform:rotateY(0);transform:rotateY(0)}
 .card[data-card="front"] .back{-webkit-transform:rotateY(180deg);transform:rotateY(180deg)}
 .card[data-card="back"] .front{-webkit-transform:rotateY(-180deg);transform:rotateY(-180deg)}
-.card[data-card="back"] .back{-webkit-transform:none;-ms-transform:none;transform:none}
+.card[data-card="back"] .back{-webkit-transform:rotateY(0);transform:rotateY(0)}
 .card.on{border-color:#999}
 .card.valid{border-color:#9c3}
 .card.error{border-color:#cc3214}
@@ -18,7 +18,6 @@ body{font-size:16px;font-family:'marvinvisions'}
 .ui{position:absolute;top:0;left:0;margin:0;padding:0;font-size:1rem}
 .ui button{border-bottom-right-radius:.75rem}
 .grade:after{content:'%'}
-.terms{float:right;width:50%}
 .term{float:right;width:51%;text-align:center;padding:.5rem 0}
 .operand{text-align:center;padding:6rem 0 0;float:left;width:48%}
 .answers{border-top:5px solid #999;padding:1rem 0 0;margin:0 1rem 0 0;width:100%;clear:both}
@@ -41,11 +40,11 @@ body{font-size:16px;font-family:'marvinvisions'}
 .answer[data-color="10"]:after{background:#93c}
 .card.valid .answer[data-color]:after,.card.error .answer[data-color]:after{opacity:0}
 .option span{display:none}
-.option.operand{margin-top:4.5rem;width:50%;text-align:right}
+.option.operand{padding-top:7.5rem;width:48%;text-align:right}
 .option.mode{clear:both;margin-top:.5rem}
 .option.mode,.option.number{text-align:center}
 select{font-size:1.5rem;font-family:'marvinvisions';margin:0}
-.term select,.operand select{font-size:3.5rem;min-width:10rem;text-align:center}
+.term select,.operand select{font-size:3.5rem;min-width:8rem;text-align:center}
 button,.button{-webkit-appearance:none;-moz-appearance:none;border-radius:0;border-style:solid;border-width:0;cursor:pointer;font-weight:normal;line-height:normal;margin:0;position:relative;text-align:center;text-decoration:none;display:inline-block;padding:.5rem 1rem .6rem 1rem;font-size:1.25rem;background-color:#999;border-color:#999;color:#fff;outline:0;-webkit-transition:background-color 300ms ease-out;transition:background-color 300ms ease-out;position:absolute}
 button.top,.button.top{top:0;bottom:initial}
 button.bottom,.button.bottom{bottom:0;top:initial}
@@ -65,7 +64,7 @@ button.info,.button.info{background-color:rgba(153,153,153,0.5);border-color:rgb
 dl{font-size:.8rem;font-family:sans-serif}
 dl dt{font-weight:bold}
 dl dd{margin:0 0 .5rem}
-.log{overflow:scroll}
+.log{width:100%;max-height:90%;overflow:scroll}
 .log table{font-size:1rem;font-family:sans-serif;width:100%;border-spacing:0;margin:0 0 1rem}
 .log table thead{background:rgba(13,231,255,0.5)}
 .log table tbody tr:nth-child(odd){background:rgba(153,153,153,0.05)}

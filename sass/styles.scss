@@ -75,7 +75,7 @@ body {
 
 	&[data-card="front"] {
 		.front {
-			transform: none;
+			transform: rotateY( 0deg );
 		}
 		.back {
 			transform: rotateY( 180deg );
@@ -87,7 +87,7 @@ body {
 			transform: rotateY( -180deg );
 		}
 		.back {
-			transform: none;
+			transform: rotateY( 0deg );
 		}
 	}
 }
@@ -122,10 +122,6 @@ body {
 }
 .grade:after {
 	content: '%';
-}
-.terms {
-	float: right;
-	width: 50%;
 }
 .term {
 	float: right;
@@ -230,8 +226,9 @@ body {
 	}
 
 	&.operand {
-		margin-top: 4.5rem;
-		width: 50%;
+		// margin-top: 4.5rem;
+		padding-top: 7.5rem;
+		width: 48%;
 		text-align: right;
 	}
 
@@ -254,7 +251,7 @@ select {
 	.term &,
 	.operand & {
 		font-size: 3.5rem;
-		min-width: 10rem;
+		min-width: 8rem;
 		text-align: center;
 	}
 }
@@ -374,6 +371,8 @@ dl {
 }
 
 .log {
+	width: 100%;
+	max-height: 90%;
 	overflow: scroll;
 
 	table{

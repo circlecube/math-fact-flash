@@ -18,11 +18,10 @@
 				<figure class="front">
 					<button class="top left gray" @click="flipcard()" title="Options"><i class="fa fa-cog"></i></button>
 
-					<!-- <div class="terms"> -->
 					<div class="term term1" v-text="active_val"></div>
 					<div class="operand" v-text="operation"></div>
 					<div class="term term2" v-text="passive_val"></div>
-					<!-- </div> -->
+
 					<div class="answers">
 						<div class="answer" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="(answer.state === 'on' ? checkAnswer(i) : null)" v-bind:data-color="randomNumber(10)"></div>
 					</div>
@@ -53,6 +52,16 @@
 							</select>
 						</label>
 					</div>
+					<div class="option operand" v-bind:class="{ 'hide' : displaylogs }">
+						<label><span>Operation: </span>
+							<select v-model="operation" v-on:change="setDefaultRanges()">
+								<option value="+">&nbsp;+&nbsp;</option>
+								<option value="-">&nbsp;-&nbsp;</option>
+								<option value="×">&nbsp;×&nbsp;</option>
+								<!-- <option value="÷">÷</option> -->
+							</select>
+						</label>
+					</div>
 					<div class="option term term2" v-bind:class="{ 'hide' : displaylogs }">
 						<label><span>Bottom: </span>
 							<select v-model="passives" v-on:change="setRanges()">
@@ -62,16 +71,6 @@
 								<option value="10-20">10-20</option>
 								<option value="0-50">0-50</option>
 								<option value="0-100">0-100</option>
-							</select>
-						</label>
-					</div>
-					<div class="option operand" v-bind:class="{ 'hide' : displaylogs }">
-						<label><span>Operation: </span>
-							<select v-model="operation" v-on:change="setDefaultRanges()">
-								<option value="+">&nbsp;+&nbsp;</option>
-								<option value="-">&nbsp;-&nbsp;</option>
-								<option value="×">&nbsp;×&nbsp;</option>
-								<!-- <option value="÷">÷</option> -->
 							</select>
 						</label>
 					</div>
