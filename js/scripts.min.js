@@ -2,7 +2,8 @@
 
 ROADMAP:
 Add settings to localstorage
-Options styled as back of card
+Add new modes
+Add currency
 
 */
 
@@ -334,7 +335,7 @@ var app = new Vue({
 				this.flipcard();
 				this.errors = 0;
 				this.valids = 0;
-				this.answers = 0;
+				this.answer_count = 0;
 				this.answer_color = this.randomNumber(8);
 				if ( this.mode === 'practice' ) {
 					this.current_card = 0;
