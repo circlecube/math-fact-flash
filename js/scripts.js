@@ -219,7 +219,8 @@ var app = new Vue({
 					total: this.total_cards,
 					operationlabel: this.operationlabel[this.operation],
 					operation: this.operation,
-					terms: terms_active + ' & ' + terms_passive,
+					terms_active: terms_active,
+					terms_passive: terms_passive,
 					duration: this.duration,
 					time: new Date(),
 				};
