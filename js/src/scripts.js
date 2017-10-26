@@ -14,7 +14,9 @@ var app = new Vue({
 			cardstate: 'back', // front, back/flipped
 			state: 'on',	// valid, error, on, end
 			mode: 'test',	// 'practice' - answer until correct. 
-							// 'test' - only one answer per question (limited question)
+							// 'stack' - only one answer per question (limited question)
+							// 'streak' - go until you get a wrong answer - grade is total correct
+							// 'timer' - race the clock and answer as many as you can in a set time
 			range_answer: 6,
 			active_val: '',
 			passive_val: '',
@@ -34,6 +36,7 @@ var app = new Vue({
 			errors: 0,
 			valids: 0,
 			answers: 0,
+			answer_color: 0,
 			total_cards: 20,
 			current_card: 0,
 			progressrecord: [],
@@ -49,6 +52,11 @@ var app = new Vue({
 			logs: localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [],
 			displaylogs: false,
 			infomode: false,
+			autopilot: true,
+			autopilot_timeout: null,
+			autopilot_delay: 400,
+			card_timeout: null,
+			card_delay: 500,
 		},
 
 		methods: {
@@ -63,7 +71,7 @@ var app = new Vue({
 				// offset for correct
 				num += answers[0].value;
 				// make sure the answer checks if `allow_negative`
-				if ( !this.allow_negative && this.operation === '+' && num < 0 ) {
+				if ( !this.allow_negative && num < 0 ) {
 					// if negative get another
 					//return this.random(answers, distance);
 					num *= -1; //make it positive
@@ -112,15 +120,25 @@ var app = new Vue({
 					case '×':
 						return this.active_val * this.passive_val;
 					case '÷':
-						return (this.active_val / this.passive_val).toFixed(2);
+						return this.active_val / this.passive_val;
 					default:
 						return this.active_val + this.passive_val;
 				}
 			},
+			answerforme(){
+				var correct = this.getAnswer();
+
+				//
+				for ( var i = 0; i < 4; i++ ) {
+					if ( this.random_answers[i].value === correct ) {
+						this.checkAnswer(i);
+					}
+				}
+
+			},
 			checkAnswer(i){
 				// get correct answer
 				var correct = this.getAnswer();
-				// console.log('checkAnswer', i , correct);
 
 				this.answers++;
 
@@ -132,7 +150,7 @@ var app = new Vue({
 						this.valids++;
 						this.state = 'valid';
 						this.random_answers[i].state = 'valid';
-						setTimeout(this.newCard, 500);
+						this.card_timeout = setTimeout(this.newCard, this.card_delay);
 					}
 					else { // incorrect - wait for correct			 
 						this.errors++;
@@ -158,14 +176,22 @@ var app = new Vue({
 						this.state = 'error';
 						this.random_answers[i].state = 'error';
 					}
-					// console.log('checkAnswer1', this.state);
+					// console.log('checkAnswer', i , this.random_answers[i].value, this.state, correct);
+					// console.table( this.random_answers );
+
+					this.current_card--;
+
 					//update progress
 					this.progressrecord.push(this.state);
-
-					// load new card
-					this.current_card--;
-					setTimeout(this.newCard, 500);
 					
+					// load new card
+					this.card_timeout = setTimeout(this.newCard, this.card_delay);
+
+					//automate answers
+					if ( this.current_card > 0 && this.autopilot ) {
+						this.autopilot_timeout = setTimeout(this.answerforme, this.card_delay + this.autopilot_delay);
+					}
+
 				}
 				
 				 
@@ -187,6 +213,7 @@ var app = new Vue({
 						this.state = 'on';
 					}
 				}
+				this.answer_color = this.randomNumber();
 			},
 			badAnswer(){
 				if ( this.errors > this.max_errors_allowed ) {
@@ -199,7 +226,9 @@ var app = new Vue({
 				var log = {
 					grade: this.grade,
 					total: this.total_cards,
-					operation: this.operationlabel[this.operation],
+					operationlabel: this.operationlabel[this.operation],
+					operation: this.operation,
+					terms: this.actives + ' & ' + this.passives,
 					duration: this.duration,
 					time: new Date(),
 				};
@@ -211,10 +240,29 @@ var app = new Vue({
 				this.displaylog(true);
 			},
 			getRandomValues(){
-				this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
-				this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
+				if ( this.operation != '÷') { //addition subtraction and multiplication
+					this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
+					this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
+				} 
+				/*
+					for division - flip multiplication formula around
+					use same 0-12 vals
+					active becomes answer
+					passive stays same
+					answer(quotient) becomes active val to be displayed on card correctly
+				*/
+				else { //division only
+					this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
+					this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
+					//correct for divide zero
+					if ( this.passive_val === 0) {
+						this.passive_val = 1;
+					}
+					this.active_val = this.active_val * this.passive_val;
+				}
 			},
 			reset(){
+				// console.log('start game:', this.mode);
 				this.state = 'on';
 				this.flipcard();
 				this.errors = 0;
@@ -229,13 +277,6 @@ var app = new Vue({
 				this.starttime = new Date();
 
 				this.getRandomValues();
-			},
-			closemodal(){
-				flipcard();
-			},
-			toggle(v){
-				// console.log(v, this.v);
-				v = !v;
 			},
 			toggleinfomode(){
 				this.infomode = !this.infomode;
@@ -253,6 +294,10 @@ var app = new Vue({
 						this.passives = '0-10';
 						break;
 					case '×':
+						this.actives = '0-12';
+						this.passives = '0-12';
+						break;
+					case '÷':
 						this.actives = '0-12';
 						this.passives = '0-12';
 						break;
