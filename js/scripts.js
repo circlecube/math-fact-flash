@@ -49,6 +49,11 @@ var app = new Vue({
 			logs: localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [],
 			displaylogs: false,
 			infomode: false,
+			autopilot: true,
+			autopilot_timeout: null,
+			autopilot_delay: 400,
+			card_timeout: null,
+			card_delay: 500,
 		},
 
 		methods: {
@@ -117,10 +122,20 @@ var app = new Vue({
 						return this.active_val + this.passive_val;
 				}
 			},
+			answerforme(){
+				var correct = this.getAnswer();
+
+				//
+				for ( var i = 0; i < 4; i++ ) {
+					if ( this.random_answers[i].value === correct ) {
+						this.checkAnswer(i);
+					}
+				}
+
+			},
 			checkAnswer(i){
 				// get correct answer
 				var correct = this.getAnswer();
-				// console.log('checkAnswer', i , correct);
 
 				this.answers++;
 
@@ -132,7 +147,7 @@ var app = new Vue({
 						this.valids++;
 						this.state = 'valid';
 						this.random_answers[i].state = 'valid';
-						setTimeout(this.newCard, 500);
+						this.card_timeout = setTimeout(this.newCard, this.card_delay);
 					}
 					else { // incorrect - wait for correct			 
 						this.errors++;
@@ -158,14 +173,22 @@ var app = new Vue({
 						this.state = 'error';
 						this.random_answers[i].state = 'error';
 					}
-					// console.log('checkAnswer1', this.state);
+					// console.log('checkAnswer', i , this.random_answers[i].value, this.state, correct);
+					// console.table( this.random_answers );
+
+					this.current_card--;
+
 					//update progress
 					this.progressrecord.push(this.state);
-
-					// load new card
-					this.current_card--;
-					setTimeout(this.newCard, 500);
 					
+					// load new card
+					this.card_timeout = setTimeout(this.newCard, this.card_delay);
+
+					//automate answers
+					if ( this.current_card > 0 && this.autopilot ) {
+						this.autopilot_timeout = setTimeout(this.answerforme, this.card_delay + this.autopilot_delay);
+					}
+
 				}
 				
 				 
@@ -217,6 +240,7 @@ var app = new Vue({
 				this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
 			},
 			reset(){
+				// console.log('start game:', this.mode);
 				this.state = 'on';
 				this.flipcard();
 				this.errors = 0;
@@ -231,13 +255,6 @@ var app = new Vue({
 				this.starttime = new Date();
 
 				this.getRandomValues();
-			},
-			closemodal(){
-				flipcard();
-			},
-			toggle(v){
-				// console.log(v, this.v);
-				v = !v;
 			},
 			toggleinfomode(){
 				this.infomode = !this.infomode;
