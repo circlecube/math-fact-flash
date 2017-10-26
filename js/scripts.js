@@ -119,7 +119,7 @@ var app = new Vue({
 					case '×':
 						return this.active_val * this.passive_val;
 					case '÷':
-						return (this.active_val / this.passive_val).toFixed(2);
+						return this.active_val / this.passive_val;
 					default:
 						return this.active_val + this.passive_val;
 				}
@@ -238,8 +238,26 @@ var app = new Vue({
 				this.displaylog(true);
 			},
 			getRandomValues(){
-				this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
-				this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
+				if ( this.operation != '÷') { //addition subtraction and multiplication
+					this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
+					this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
+				} 
+				/*
+					for division - flip multiplication formula around
+					use same 0-12 vals
+					active becomes answer
+					passive stays same
+					answer(quotient) becomes active val to be displayed on card correctly
+				*/
+				else { //division only
+					this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
+					this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
+					//correct for divide zero
+					if ( this.passive_val === 0) {
+						this.passive_val = 1;
+					}
+					this.active_val = this.active_val * this.passive_val;
+				}
 			},
 			reset(){
 				// console.log('start game:', this.mode);
@@ -274,6 +292,10 @@ var app = new Vue({
 						this.passives = '0-10';
 						break;
 					case '×':
+						this.actives = '0-12';
+						this.passives = '0-12';
+						break;
+					case '÷':
 						this.actives = '0-12';
 						this.passives = '0-12';
 						break;
