@@ -183,7 +183,7 @@ body {
 	transition: .25s all ease;
 }
 .answer[data-color="1"]:after {
-	background: $color_green;
+	background: $color_aquag;
 }
 .answer[data-color="2"]:after {
 	background: $color_lblue;
@@ -198,7 +198,7 @@ body {
 	background: $color_purpl;
 }
 .answer[data-color="6"]:after {
-	background: $color_red;
+	background: $color_purpl;
 }
 .answer[data-color="7"]:after {
 	background: $color_lblue;
@@ -207,10 +207,10 @@ body {
 	background: $color_dblue;
 }
 .answer[data-color="9"]:after {
-	background: $color_aquag;
+	background: $color_green;
 }
 .answer[data-color="10"]:after {
-	background: $color_purpl;
+	background: $color_red;
 }
 .card.valid .answer[data-color]:after,
 .card.error .answer[data-color]:after {
