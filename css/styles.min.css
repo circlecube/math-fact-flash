@@ -28,21 +28,24 @@ body{font-size:16px;font-family:'marvinvisions'}
 .answer.error{background:#cc3214}
 .answer[data-color]{position:relative}
 .answer[data-color]:after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;opacity:.25;-webkit-transition:.25s all ease;transition:.25s all ease}
-.answer[data-color="1"]:after{background:#9c3}
+.answer[data-color="1"]:after{background:#3c9}
 .answer[data-color="2"]:after{background:#0de7ff}
 .answer[data-color="3"]:after{background:#39c}
 .answer[data-color="4"]:after{background:#3c9}
 .answer[data-color="5"]:after{background:#93c}
-.answer[data-color="6"]:after{background:#cc3214}
+.answer[data-color="6"]:after{background:#93c}
 .answer[data-color="7"]:after{background:#0de7ff}
 .answer[data-color="8"]:after{background:#39c}
-.answer[data-color="9"]:after{background:#3c9}
-.answer[data-color="10"]:after{background:#93c}
+.answer[data-color="9"]:after{background:#9c3}
+.answer[data-color="10"]:after{background:#cc3214}
 .card.valid .answer[data-color]:after,.card.error .answer[data-color]:after{opacity:0}
 .option span{display:none}
 .option.operand{padding-top:7.5rem;width:48%;text-align:right}
-.option.mode{clear:both;margin-top:.5rem}
-.option.mode,.option.number{text-align:center}
+.option.mode{clear:both;float:left;width:50%}
+.option.number{float:right;width:50%}
+dl{font-size:.8rem;font-family:sans-serif}
+dl dt{font-weight:bold}
+dl dd{margin:0 0 .5rem}
 select{font-size:1.5rem;font-family:'marvinvisions';margin:0}
 .term select,.operand select{font-size:3.5rem;min-width:8rem;text-align:center}
 button,.button{-webkit-appearance:none;-moz-appearance:none;border-radius:0;border-style:solid;border-width:0;cursor:pointer;font-weight:normal;line-height:normal;margin:0;position:relative;text-align:center;text-decoration:none;display:inline-block;padding:.5rem 1rem .6rem 1rem;font-size:1.25rem;background-color:#999;border-color:#999;color:#fff;outline:0;-webkit-transition:background-color 300ms ease-out;transition:background-color 300ms ease-out;position:absolute}
@@ -59,11 +62,6 @@ button.red,.button.red{background-color:#cc3214;border-color:#cc3214}
 button.gray,.button.gray{background-color:#999;border-color:#999}
 button.info,.button.info{background-color:rgba(153,153,153,0.5);border-color:rgba(153,153,153,0.5);border-radius:50%;width:1.5rem;height:1.5rem;font-size:1rem;display:block;padding:0;position:relative}
 .log button.info{float:right}
-.mode{float:left;width:50%}
-.number{float:right;width:50%;padding:0 20%}
-dl{font-size:.8rem;font-family:sans-serif}
-dl dt{font-weight:bold}
-dl dd{margin:0 0 .5rem}
 .log{width:100%;max-height:90%;overflow:scroll}
 .log table{font-size:1rem;font-family:sans-serif;width:100%;border-spacing:0;margin:0 0 1rem}
 .log table thead{background:rgba(13,231,255,0.5)}
