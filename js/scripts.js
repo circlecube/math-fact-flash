@@ -268,6 +268,7 @@ var app = new Vue({
 				this.errors = 0;
 				this.valids = 0;
 				this.answers = 0;
+				this.answer_color = this.randomNumber(8);
 				if ( this.mode === 'practice' ) {
 					this.current_card = 0;
 				} else {
