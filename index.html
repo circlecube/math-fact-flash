@@ -116,6 +116,7 @@
 							<thead>
 								<tr>
 									<th>Type</th>
+									<th>Terms</th>
 									<th>Total</th>
 									<th>Grade</th>
 									<th>Duration</th>
@@ -125,6 +126,7 @@
 							<tbody>
 								<tr v-for="log in logs">
 									<td class="operation">{{ log.operation }}</td>
+									<td class="terms">{{ log.terms }}</td>
 									<td class="total">{{ log.total }}</td>
 									<td class="grade">{{ log.grade }}</td>
 									<td class="duration">{{ log.duration }} sec</td>

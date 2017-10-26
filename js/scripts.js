@@ -199,7 +199,9 @@ var app = new Vue({
 				var log = {
 					grade: this.grade,
 					total: this.total_cards,
-					operation: this.operationlabel[this.operation],
+					operationlabel: this.operationlabel[this.operation],
+					operation: this.operation,
+					terms: this.actives + ' & ' + this.passives,
 					duration: this.duration,
 					time: new Date(),
 				};
