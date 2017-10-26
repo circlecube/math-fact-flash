@@ -13,7 +13,7 @@
 	<main id="app">
 		
 		<div class="container">
-			<div class="card" v-bind:data-card="cardstate" v-bind:class="state" v-bind:data-errors="errors" v-bind:data-valids="valids" v-bind:data-answers="answers">
+			<div class="card" v-bind:data-card="cardstate" v-bind:class="state" v-bind:data-errors="errors" v-bind:data-valids="valids" v-bind:data-answers="answer_count">
 
 				<figure class="front">
 					<button class="top left gray" @click="flipcard()" title="Options"><i class="fa fa-cog"></i></button>
@@ -22,8 +22,14 @@
 					<div class="operand" v-text="operation"></div>
 					<div class="term term2" v-text="passive_val"></div>
 
-					<div class="answers">
-						<div class="answer" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="(answer.state === 'on' ? checkAnswer(i) : null)" v-bind:data-color="answer_color"></div>
+					<div class="answers" v-bind:data-state="state" v-bind:data-mode="mode">
+						<div class="answer" v-for="(answer, i) in answers" v-bind:class="answer.state" v-text="answer.value" @click="( 
+							mode !== 'test' ||
+							state === 'on' && 
+							answer.state === 'on' ? 
+								checkAnswer(i) : 
+								null
+							)" v-bind:data-color="answer_color"></div>
 					</div>
 				</figure>
 

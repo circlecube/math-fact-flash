@@ -35,10 +35,11 @@ var app = new Vue({
 			},
 			errors: 0,
 			valids: 0,
-			answers: 0,
+			answer_count: 0,
 			answer_color: 0,
-			total_cards: 20,
+			total_cards: 100,
 			current_card: 0,
+			answers: [],
 			progressrecord: [],
 			allow_negative: false,
 			// max_errors_allowed: 5,
@@ -66,7 +67,7 @@ var app = new Vue({
 
 				//
 				for ( var i = 0; i < 4; i++ ) {
-					if ( this.random_answers[i].value === correct ) {
+					if ( this.answers[i].value === correct ) {
 						this.checkAnswer(i);
 					}
 				}
@@ -80,25 +81,28 @@ var app = new Vue({
 			},
 
 			checkAnswer(i){
+				// console.log('checkAnswer() called');
+
 				// get correct answer
 				var correct = this.getAnswer();
+				// console.log(i, this.answers[i].value, this.state, correct);
 
-				this.answers++;
+				this.answer_count++;
 
 				//if practice mode
 				if ( this.mode === 'practice' ) {
 					// correct - load new card
-					if ( this.random_answers[i].value === correct ) {
+					if ( this.answers[i].value === correct ) {
 						// alert('correct!');
 						this.valids++;
 						this.state = 'valid';
-						this.random_answers[i].state = 'valid';
+						this.answers[i].state = 'valid';
 						this.card_timeout = setTimeout(this.newCard, this.card_delay);
 					}
 					else { // incorrect - wait for correct			 
 						this.errors++;
 						this.state = 'error';
-						this.random_answers[i].state = 'error';
+						this.answers[i].state = 'error';
 						this.badAnswer();
 						// alert('nope! ' + this.errors + ' incorrect.');
 					}
@@ -110,22 +114,22 @@ var app = new Vue({
 
 				} else { // test mode
 					// record correct answer
-					if ( this.random_answers[i].value === correct ) {
+					if ( this.answers[i].value === correct ) {
 						this.valids++;
 						this.state = 'valid';
-						this.random_answers[i].state = 'valid';
+						this.answers[i].state = 'valid';
 					} else { //record incorrect answer
 						this.errors++;
 						this.state = 'error';
-						this.random_answers[i].state = 'error';
+						this.answers[i].state = 'error';
 					}
-					// console.log('checkAnswer', i , this.random_answers[i].value, this.state, correct);
-					// console.table( this.random_answers );
+					// console.table( this.answers );
 
 					this.current_card--;
 
 					//update progress
 					this.progressrecord.push(this.state);
+					// console.table( this.progressrecord );
 					
 					// load new card
 					this.card_timeout = setTimeout(this.newCard, this.card_delay);
@@ -134,6 +138,7 @@ var app = new Vue({
 					if ( this.current_card > 0 && this.autopilot ) {
 						this.autopilot_timeout = setTimeout(this.answerforme, this.card_delay + this.autopilot_delay);
 					}
+					// console.log('next card timeout called');
 				}	 
 			},
 
@@ -178,6 +183,7 @@ var app = new Vue({
 			},
 
 			getRandomValues(){
+				// console.log('getRandomValues() called');
 				if ( this.operation != '÷') { //addition subtraction and multiplication
 					this.active_val = Math.round( Math.random() * ( this.active_max - this.active_min ) ) + this.active_min;
 					this.passive_val = Math.round( Math.random() * ( this.passive_max - this.passive_min ) ) + this.passive_min;
@@ -198,6 +204,8 @@ var app = new Vue({
 					}
 					this.active_val = this.active_val * this.passive_val;
 				}
+				// console.log('random values', this.active_val, this.passive_val);
+				this.randomize_answers();
 			},
 
 			getReport(){
@@ -233,6 +241,9 @@ var app = new Vue({
 			},
 
 			newCard(){
+				// console.log('newCard() called');
+				// console.log(this.mode, this.state, this.current_card);
+				// console.table( this.answers );
 				//if practice mode
 				if ( this.mode === 'practice' ) {
 					//reset the values
@@ -285,6 +296,31 @@ var app = new Vue({
 				}
 
 				return num;
+			},
+
+			randomize_answers(){
+				// console.log('randomize_answers() called');
+				this.answers = [];
+				//get the correct answer
+				var correct = this.getAnswer();
+
+				this.answers.push( { 
+					value: correct,
+					state: 'on' //valid, correct 
+				} );
+				//get three other answers - random differences from the range
+				while( this.answers.length < 4 ) {
+					this.answers.push( { 
+						value: this.random(this.answers, this.range_answer),
+						state: 'on'
+					} );
+				}
+				// console.table(answers);
+				// make sure answers are unique
+				// and randomize the answers
+				this.answers.sort(function() { 
+					return 0.5 - Math.random() 
+				});
 			},
 
 			randomNumber(x){
@@ -357,46 +393,35 @@ var app = new Vue({
 		},
 
 		watch: {
+			
 			logs: function(){
 				localStorage.setItem('logs', JSON.stringify(this.logs));
-			}
+			},
+
+			state: function(){
+				// console.log('state changed to', this.state);
+			},
+			
+			card_timeout: function(){
+				// console.log('card_timeout changed to', this.card_timeout);
+			},
+
 		},
 
 		filters: {
+
 			relativetime: function(time){
 				return moment(time).fromNow();
 			}
+
 		},
 
 		computed: {
 			
 			grade(){
-				var average = Math.round(this.valids / this.answers * 100);
+				var average = Math.round(this.valids / this.answer_count * 100);
 				if ( isNaN(average) ) average = '0';
 				return average;
-			},
-
-			random_answers(){
-				var answers = [];
-				//get the correct answer
-				var correct = this.getAnswer();
-
-				answers.push( { 
-					value: correct,
-					state: 'on' //valid, correct 
-				} );
-				//get three other answers - random differences from the range
-				while( answers.length < 4 ) {
-					answers.push( { 
-						value: this.random(answers, this.range_answer),
-						state: 'on'
-					} );	
-				}
-				// console.table(answers);
-				// make sure answers are unique
-				// and randomize the answers
-				answers.sort(function() { return 0.5 - Math.random() });
-				return answers;
 			},
 
 		},
