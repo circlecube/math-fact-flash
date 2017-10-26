@@ -14,7 +14,9 @@ var app = new Vue({
 			cardstate: 'back', // front, back/flipped
 			state: 'on',	// valid, error, on, end
 			mode: 'test',	// 'practice' - answer until correct. 
-							// 'test' - only one answer per question (limited question)
+							// 'stack' - only one answer per question (limited question)
+							// 'streak' - go until you get a wrong answer - grade is total correct
+							// 'timer' - race the clock and answer as many as you can in a set time
 			range_answer: 6,
 			active_val: '',
 			passive_val: '',
