@@ -70,7 +70,7 @@ var app = new Vue({
 				// offset for correct
 				num += answers[0].value;
 				// make sure the answer checks if `allow_negative`
-				if ( !this.allow_negative && this.operation === '+' && num < 0 ) {
+				if ( !this.allow_negative && num < 0 ) {
 					// if negative get another
 					//return this.random(answers, distance);
 					num *= -1; //make it positive
