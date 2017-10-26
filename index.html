@@ -23,7 +23,7 @@
 					<div class="term term2" v-text="passive_val"></div>
 
 					<div class="answers">
-						<div class="answer" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="(answer.state === 'on' ? checkAnswer(i) : null)" v-bind:data-color="randomNumber(10)"></div>
+						<div class="answer" v-for="(answer, i) in random_answers" v-bind:class="answer.state" v-text="answer.value" @click="(answer.state === 'on' ? checkAnswer(i) : null)" v-bind:data-color="answer_color"></div>
 					</div>
 				</figure>
 

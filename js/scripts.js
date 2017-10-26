@@ -36,6 +36,7 @@ var app = new Vue({
 			errors: 0,
 			valids: 0,
 			answers: 0,
+			answer_color: 0,
 			total_cards: 20,
 			current_card: 0,
 			progressrecord: [],
@@ -212,6 +213,7 @@ var app = new Vue({
 						this.state = 'on';
 					}
 				}
+				this.answer_color = this.randomNumber();
 			},
 			badAnswer(){
 				if ( this.errors > this.max_errors_allowed ) {
