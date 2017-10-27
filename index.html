@@ -157,16 +157,14 @@
 								<tr>
 									<th>Type</th>
 									<th>Total</th>
-									<th>Grade</th>
 									<th>Duration</th>
 									<th>Time</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr v-for="log in logs">
-									<td class="operation">{{ log.terms_active }} {{ log.operation }} {{ log.terms_passive }}</td>
+									<td class="operation">[{{ log.terms_active }}] {{ log.operation }} [{{ log.terms_passive }}]</td>
 									<td class="total">{{ log.correct }}/{{ log.total }}</td>
-									<td class="grade">{{ log.grade }}</td>
 									<td class="duration">{{ log.duration }} sec</td>
 									<td class="time">{{ log.time | relativetime }}</td>
 								</tr>
@@ -177,10 +175,10 @@
 
 			</div>
 		</div>
-		<div class="progressbar" v-bind:data-total="total_cards">
-			<span class="bar" v-for="record in progressrecord" v-bind:class="record" v-bind:data-total="total_cards" v-bind:style="progresswidthcss()"></span>
-			<span class="grade" v-text="grade"></span>
-		</div>
+		<span class="progressgrade" v-text="grade"></span>
+		<transition-group tag="div" name="progressbar" class="progressbar" v-bind:data-total="total_cards">
+			<span class="bar" v-for="record in progressrecord" v-bind:class="record.state" v-bind:data-total="total_cards" v-bind:data-count="record.count" :key="record.count" v-bind:style="progresswidthcss()"></span>
+		</transition-group>
 	</main>
 	<script src="js/vendors.min.js"></script>
 	<script src="js/scripts.min.js"></script>

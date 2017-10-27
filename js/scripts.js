@@ -111,7 +111,10 @@ var app = new Vue({
 					this.current_card++;
 
 					//update progress
-					this.progressrecord.push(this.state);
+					this.progressrecord.push({
+						state:	this.state,
+						count:	this.answer_count
+					});
 
 				} else { // test mode
 					// record correct answer
@@ -129,7 +132,10 @@ var app = new Vue({
 					this.current_card--;
 
 					//update progress
-					this.progressrecord.push(this.state);
+					this.progressrecord.push({
+						state:	this.state,
+						count:	this.answer_count
+					});
 					// console.table( this.progressrecord );
 					
 					// load new card

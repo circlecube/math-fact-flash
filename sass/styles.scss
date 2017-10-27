@@ -407,14 +407,15 @@ button,
 	height: 1rem;
 	display: inline-block;
 	background: $color_green;
+	transition: width .2s ease;
 }
 .progressbar .bar.error {
 	background: $color_red;
 }
-.progressbar .grade {
+.progressgrade {
 	position: absolute;
 	display: block;
-	top: -2rem;
+	bottom: 1rem;
 	right: 0;
 	height: 2rem;
 	width: 100%;
@@ -422,6 +423,14 @@ button,
 	overflow: hidden;
 	white-space: nowrap;
 	text-align: right;
+
+	&:after {
+		content: '%';
+	}
+}
+
+.progressbar-enter {
+	width: 0% !important;
 }
 
 h4 {
