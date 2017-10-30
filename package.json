@@ -1,5 +1,5 @@
 {
-  "name": "Math Facts Flash",
+  "name": "math-fact-flash",
   "author": "circlecube",
   "version": "20171026",
   "license": "GPL-2.0",
@@ -26,5 +26,5 @@
     "gulp-uglify": "^1.5.3",
     "gulp-uglifycss": "^1.0.6",
     "gulp-wp-pot": "^1.2.2"
-  }
+  },
 }
