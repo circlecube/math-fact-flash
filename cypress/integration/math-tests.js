@@ -2,6 +2,7 @@ describe('Math Fact Flash App', function(){
 	it('.should() - assert that <title> is correct', function(){
 		cy.visit('http://local.cc.com/app/math-fact-flash/index.html?cachebuster=1')
 		cy.title().should('include', 'Math Flash Cards')
+		cy.screenshot()
 	})
 
 	it('.click cog button to go to options card back', function(){
@@ -98,7 +99,7 @@ describe('Math Fact Flash App', function(){
 		cy.get('.log tbody tr .total').should('contain', '5/5')
 		cy.get('.log tbody tr .duration').should('contain', 'sec')
 		cy.get('.log tbody tr .time').should('contain', 'ago')
-		
+
 	})
 
 	
