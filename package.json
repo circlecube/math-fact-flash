@@ -1,15 +1,16 @@
 {
-  "name": "WPGulp",
-  "author": "ahmadawais",
-  "version": "1.0.3",
+  "name": "Math Facts Flash",
+  "author": "circlecube",
+  "version": "20171026",
   "license": "GPL-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ahmadawais/WPGulp"
+    "url": "https://github.com/circlecube/math-fact-flash"
   },
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.11.1",
+    "cypress": "^1.0.3",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.5.2",
@@ -20,10 +21,10 @@
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^2.2.0",
+    "gulp-sort": "^2.0.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.5.3",
     "gulp-uglifycss": "^1.0.6",
-    "gulp-sort": "^2.0.0",
     "gulp-wp-pot": "^1.2.2"
   }
 }

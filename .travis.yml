@@ -1,0 +1,12 @@
+language: node_js
+
+node_js:
+  - "iojs"
+  - "7"
+
+install:
+  npm install cypress --save-dev
+before_script:
+
+script:
+  cypress run --record --key 86dd3c7e-a64f-44e5-bf16-0c6eacdebd19
