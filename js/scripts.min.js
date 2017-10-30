@@ -313,13 +313,15 @@ var app = new Vue({
 
 				this.answers.push( { 
 					value: correct,
-					state: 'on' //valid, correct 
+					state: 'on', //valid, correct 
+					iscorrect: true
 				} );
 				//get three other answers - random differences from the range
 				while( this.answers.length < 4 ) {
 					this.answers.push( { 
 						value: this.random(this.answers, this.range_answer),
-						state: 'on'
+						state: 'on',
+						iscorrect: false
 					} );
 				}
 				// console.table(answers);
