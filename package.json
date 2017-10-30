@@ -9,7 +9,7 @@
   },
   "scripts": {
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
+    "cypress:run": "cypress run --record --key 86dd3c7e-a64f-44e5-bf16-0c6eacdebd19",
     "start": "http-server -p 8888 -c-1",
     "start:ci": "http-server -p 8888 -c-1 --silent",
     "test": "npm run start & cypress run",

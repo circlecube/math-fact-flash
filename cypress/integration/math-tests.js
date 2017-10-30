@@ -1,6 +1,7 @@
 describe('Math Fact Flash App', function(){
 	it('.should() - assert that <title> is correct', function(){
-		cy.visit('http://local.cc.com/app/math-fact-flash/index.html?cachebuster=1')
+		// cy.visit('http://local.cc.com/app/math-fact-flash/index.html?cachebuster=1')
+		cy.visit("/")
 		cy.title().should('include', 'Math Flash Cards')
 		cy.screenshot()
 	})
