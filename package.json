@@ -7,6 +7,11 @@
     "type": "git",
     "url": "https://github.com/circlecube/math-fact-flash"
   },
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+
+  },
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.11.1",
