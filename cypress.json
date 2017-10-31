@@ -1,4 +1,6 @@
 {
-  "projectId": "uyquxe",
-  "baseUrl": "http://localhost:8888"
+	"projectId": "uyquxe",
+	"env": {
+		"appurl": "http://localhost:8888"
+	}
 }

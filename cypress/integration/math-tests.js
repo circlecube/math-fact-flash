@@ -1,6 +1,6 @@
 describe('Math Fact Flash App', function(){
 	it('.should() - assert that <title> is correct', function(){
-		cy.visit( Cypress.env("baseUrl") )
+		cy.visit( Cypress.env("appurl") )
 		cy.title().should('include', 'Math Flash Cards')
 		cy.screenshot()
 	})
