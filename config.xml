@@ -3,15 +3,15 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android = "http://schemas.android.com/apk/res/android"
         id        = "com.circlecube.mathfactflash"
-        versionCode="20171026" 
-        version   = "2017.10.26">
+        versionCode="20171101" 
+        version   = "2017.11.01">
 
     <name>Math Facts Flash</name>
 
     <description>
         Flash Cards to practice Math Facts! Customize the operation and number ranges. 
 
-        Game mode will continue endlessly and test mode will have a set number of questions. Both modes give a score.
+        Game mode will continue endlessly and test mode will have a set number of questions. Both modes keep score.
     </description>
 
     <author href="https://circlecube.com" email="evan@circlecube.com">Evan Mullins</author>
@@ -48,9 +48,9 @@
     <preference name="android-minSdkVersion" value="14" />
     <preference name="android-targetSdkVersion" value="23" />
 
-    <icon src="icon/icon-72.png" width="72" height="72" />
-    <icon src="icon/icon-512.png" width="512" height="512" />
-    <icon src="icon/icon-1024.png" width="1024" height="1024" />
+    <icon src="icon/android/mipmap-hdpi/ic_launcher.png" width="72" height="72" />
+    <icon src="icon/ios/iTunesArtwork@1x.png" width="512" height="512" />
+    <icon src="icon/ios/iTunesArtwork@2x.png" width="1024" height="1024" />
     
     <!-- Androind -->
 
