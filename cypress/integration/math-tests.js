@@ -412,9 +412,11 @@ describe('Math Fact Flash App', function(){
 	it('open options during test', function(){
 		cy.get('#cog').click();
 		cy.get('.card').should('have.attr', 'data-card', 'back')
+		cy.wait(1000);
 	})
 
 	it('open logs', function(){
+		cy.get('#logs').should('be.visible')
 		cy.get('#logs').click()
 		cy.get('.log').should('be.visible')
 		cy.get('.log tbody tr').should('have.length', 2)
@@ -422,11 +424,13 @@ describe('Math Fact Flash App', function(){
 	})
 
 	it('delete logs', function(){
-		cy.get('.log button.info').click()
+		cy.get('#delete_logs').should('be.visible')
+		cy.get('#delete_logs').click()
 		cy.get('.log tbody tr').should('have.length', 0)
 	})
 
 	it('close logs', function(){
+		cy.get('#logs').should('be.visible')
 		cy.get('#logs').click()
 		cy.get('.logs').should('not.be.visible')
 	})
