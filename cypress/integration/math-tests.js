@@ -97,8 +97,13 @@ describe('Math Fact Flash App', function(){
 
 	})
 
+	/*
 	
-	
+	check that a wrong answer is wrong
+	check that practice mode works as expected
+	check math 
+
+	*/
 
 
 })
