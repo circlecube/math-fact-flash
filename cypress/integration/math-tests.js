@@ -98,7 +98,8 @@ describe('Math Fact Flash App', function(){
 	})
 
 	/*
-	
+	test all options
+	test info button displays info for modes
 	check that a wrong answer is wrong
 	check that practice mode works as expected
 	check math 
