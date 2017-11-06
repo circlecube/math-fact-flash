@@ -29,7 +29,7 @@
 							answer.state === 'on' ? 
 								checkAnswer(i) : 
 								null
-							)" v-bind:data-color="answer_color" v-bind:data-iscorrect="answer.iscorrect"></div>
+							)" v-bind:data-color="answer_color" v-bind:data-iscorrect="answer.iscorrect" v-bind:data-incorrect="!answer.iscorrect"></div>
 					</div>
 				</figure>
 
