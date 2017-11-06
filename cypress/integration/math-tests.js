@@ -36,7 +36,6 @@ describe('Math Fact Flash App', function(){
 
 	it('click correct answer 1', function(){
 		cy.get('.front .answer[data-iscorrect="true"]').click()
-		// cy.wait(100)
 		cy.get('.front .answer[data-iscorrect="true"]').should('have.class', 'valid')
 		cy.wait(1000);
 		//check progressbar
@@ -47,7 +46,6 @@ describe('Math Fact Flash App', function(){
 
 	it('click correct answer 2', function(){
 		cy.get('.front .answer[data-iscorrect="true"]').click()
-		// cy.wait(100)
 		cy.get('.front .answer[data-iscorrect="true"]').should('have.class', 'valid')
 		cy.wait(1000);
 		//check progressbar
@@ -58,7 +56,6 @@ describe('Math Fact Flash App', function(){
 
 	it('click correct answer 3', function(){
 		cy.get('.front .answer[data-iscorrect="true"]').click()
-		// cy.wait(100)
 		cy.get('.front .answer[data-iscorrect="true"]').should('have.class', 'valid')
 		cy.wait(1000);
 		//check progressbar
@@ -69,7 +66,6 @@ describe('Math Fact Flash App', function(){
 
 	it('click correct answer 4', function(){
 		cy.get('.front .answer[data-iscorrect="true"]').click()
-		// cy.wait(100)
 		cy.get('.front .answer[data-iscorrect="true"]').should('have.class', 'valid')
 		cy.wait(1000);
 		//check progressbar
@@ -80,7 +76,6 @@ describe('Math Fact Flash App', function(){
 
 	it('click correct answer 5', function(){
 		cy.get('.front .answer[data-iscorrect="true"]').click()
-		// cy.wait(100)
 		cy.get('.front .answer[data-iscorrect="true"]').should('have.class', 'valid')
 		cy.wait(1000);
 		//check progressbar
