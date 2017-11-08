@@ -2,7 +2,7 @@
   "name": "math-fact-flash",
   "author": "circlecube",
   "version": "2017.10.26",
-  "license": "GPL-2.0",
+  "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/circlecube/math-fact-flash"
@@ -16,7 +16,6 @@
     "test:ci": "run-p --race start:ci cypress:run"
   },
   "dependencies": {
-    "http-server": "0.10.0"
   },
   "devDependencies": {
     "browser-sync": "^2.11.1",
@@ -35,6 +34,6 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.5.3",
     "gulp-uglifycss": "^1.0.6",
-    "gulp-wp-pot": "^1.2.2"
+    "http-server": "0.10.0"
   }
 }
