@@ -14,7 +14,7 @@ var app = new Vue({
 		data: {
 			cardstate: 'back', // front, back/flipped
 			state: 'on',	// valid, error, on, end
-			mode: 'test',	// 'practice' - answer until correct. 
+			mode: 'timer',	// 'practice' - answer until correct. 
 							// 'stack' - only one answer per question (limited question)
 							// 'streak' - go until you get a wrong answer - grade is total correct
 							// 'timer' - race the clock and answer as many as you can in a set time
@@ -48,7 +48,8 @@ var app = new Vue({
 			// fractions: false,
 			// decimals: false,
 			// init_timeout: 10000,
-			// timer: false,	// to add a timer option
+			timer_current: 0,
+			timer_timeout: 30,	// to add a timer option
 			starttime: 0,
 			duration: 0,
 			logs: localStorage.getItem('logs') ? JSON.parse(localStorage.getItem('logs')) : [],
@@ -91,62 +92,91 @@ var app = new Vue({
 				this.answer_count++;
 
 				//if practice mode
-				if ( this.mode === 'practice' ) {
-					// correct - load new card
-					if ( this.answers[i].value === correct ) {
-						// alert('correct!');
-						this.valids++;
-						this.state = 'valid';
-						this.answers[i].state = 'valid';
+				switch ( this.mode ) {
+					case 'practice':
+						// correct - load new card
+						if ( this.answers[i].value === correct ) {
+							// alert('correct!');
+							this.valids++;
+							this.state = 'valid';
+							this.answers[i].state = 'valid';
+							this.card_timeout = setTimeout(this.newCard, this.card_delay);
+						}
+						else { // incorrect - wait for correct			 
+							this.errors++;
+							this.state = 'error';
+							this.answers[i].state = 'error';
+							this.badAnswer();
+							// alert('nope! ' + this.errors + ' incorrect.');
+						}
+
+						this.current_card++;
+
+						//update progress
+						this.progressrecord.push({
+							state:	this.state,
+							count:	this.answer_count
+						});
+
+						break;
+					case 'timer':
+						// record correct answer
+						if ( this.answers[i].value === correct ) {
+							this.valids++;
+							this.state = 'valid';
+							this.answers[i].state = 'valid';
+						} else { //record incorrect answer
+							this.errors++;
+							this.state = 'error';
+							this.answers[i].state = 'error';
+						}
+						this.current_card++;
+
+						//update progress
+						this.progressrecord.push({
+							state:	this.state,
+							count:	this.answer_count
+						});
+
+						// load new card
 						this.card_timeout = setTimeout(this.newCard, this.card_delay);
-					}
-					else { // incorrect - wait for correct			 
-						this.errors++;
-						this.state = 'error';
-						this.answers[i].state = 'error';
-						this.badAnswer();
-						// alert('nope! ' + this.errors + ' incorrect.');
-					}
 
-					this.current_card++;
+						break;
+					case 'test':
+						// record correct answer
+						if ( this.answers[i].value === correct ) {
+							this.valids++;
+							this.state = 'valid';
+							this.answers[i].state = 'valid';
+						} else { //record incorrect answer
+							this.errors++;
+							this.state = 'error';
+							this.answers[i].state = 'error';
+						}
+						// console.table( this.answers );
 
-					//update progress
-					this.progressrecord.push({
-						state:	this.state,
-						count:	this.answer_count
-					});
+						this.current_card--;
 
-				} else { // test mode
-					// record correct answer
-					if ( this.answers[i].value === correct ) {
-						this.valids++;
-						this.state = 'valid';
-						this.answers[i].state = 'valid';
-					} else { //record incorrect answer
-						this.errors++;
-						this.state = 'error';
-						this.answers[i].state = 'error';
-					}
-					// console.table( this.answers );
+						//update progress
+						this.progressrecord.push({
+							state:	this.state,
+							count:	this.answer_count
+						});
+						// console.table( this.progressrecord );
+						
+						// load new card
+						this.card_timeout = setTimeout(this.newCard, this.card_delay);
 
-					this.current_card--;
-
-					//update progress
-					this.progressrecord.push({
-						state:	this.state,
-						count:	this.answer_count
-					});
-					// console.table( this.progressrecord );
-					
-					// load new card
-					this.card_timeout = setTimeout(this.newCard, this.card_delay);
-
-					//automate answers
-					if ( this.current_card > 0 && this.autopilot ) {
-						this.autopilot_timeout = setTimeout(this.answerforme, this.card_delay + this.autopilot_delay);
-					}
-					// console.log('next card timeout called');
-				}	 
+						//automate answers
+						if ( this.current_card > 0 && this.autopilot ) {
+							this.autopilot_timeout = setTimeout(this.answerforme, this.card_delay + this.autopilot_delay);
+						}
+						// console.log('next card timeout called');
+						break;
+					default:
+						// nothing here
+				}
+ 
 			},
 
 			clearlog(){
@@ -231,7 +261,7 @@ var app = new Vue({
 				var log = {
 					grade: this.grade,
 					correct: this.valids,
-					total: this.total_cards,
+					total: this.mode === 'timer' ? this.current_card : this.total_cards,
 					operationlabel: this.operationlabel[this.operation],
 					operation: this.operation,
 					terms_active: terms_active,
@@ -249,32 +279,56 @@ var app = new Vue({
 
 			newCard(){
 				// console.log('newCard() called');
-				// console.log(this.mode, this.state, this.current_card);
+				console.log(this.mode, this.state, this.current_card);
 				// console.table( this.answers );
 				//if practice mode
-				if ( this.mode === 'practice' ) {
-					//reset the values
-					this.getRandomValues();
-					this.state = 'on';
-				} else { // test mode
-				// if cards are out
-				if ( this.current_card <= 0 ) {
-						this.getReport();
-						this.state = 'off';
-					} else {
+				switch ( this.mode ) {
+					case 'practice':
 						//reset the values
 						this.getRandomValues();
 						this.state = 'on';
-					}
+						break;
+					case 'timer':
+						// if still time
+						this.timer_current = new Date();
+						this.duration = moment(this.timer_current).diff(moment(this.starttime), 'seconds');
+						if ( this.duration < this.timer_timeout ) {
+							this.getRandomValues();
+							this.state = 'on';
+						} else {
+							this.getReport();
+							this.state = 'off';
+						}
+						break;
+					case 'test':
+						// if cards are out
+						if ( this.current_card <= 0 ) {
+							this.getReport();
+							this.state = 'off';
+						} else {
+							//reset the values
+							this.getRandomValues();
+							this.state = 'on';
+						}
+						break;
+					default:
+						// nothing here
 				}
+				
 				this.answer_color = this.randomNumber(8);
 			},
 
-			progresswidthcss(total){
-				if ( this.mode === 'practice' ) {
-					return 'width:' + (100 / this.current_card) + '%;';
-				} else {
-					return 'width:' + (100 / this.total_cards) + '%;';
+			progresswidthcss( total ){
+				switch ( this.mode ) {
+					case 'practice':
+						return 'width:' + ( 100 / this.current_card ) + '%;';
+					case 'timer':
+						console.log( this.duration, this.timer_timeout );
+						return 'width:' + ( this.duration / this.timer_timeout / this.current_card ) * 100 + '%;';
+					case 'test':
+						return 'width:' + ( 100 / this.total_cards ) + '%;';
+					default:
+						// nothing here
 				}
 			},
 
@@ -345,10 +399,18 @@ var app = new Vue({
 				this.valids = 0;
 				this.answer_count = 0;
 				this.answer_color = this.randomNumber(8);
-				if ( this.mode === 'practice' ) {
-					this.current_card = 0;
-				} else {
-					this.current_card = this.total_cards;
+				switch ( this.mode ) {
+					case 'practice':
+						this.current_card = 0;
+						break;
+					case 'timer':
+						this.current_card = 0;
+						break;
+					case 'test':
+						this.current_card = this.total_cards;
+						break;
+					default:
+						// nothing here
 				}
 				this.progressrecord = [];
 				this.starttime = new Date();

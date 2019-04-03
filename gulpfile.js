@@ -30,7 +30,7 @@
 // START Editing Project Variables.
 // Project related.
 var project							= 'MathFactsFlash'; // Project Name.
-var projectURL					= 'https://local.cc.com/app/math-fact-flash/'; // Project URL. Could be something like localhost:8888.
+var projectURL					= 'https://local.circlecube.com/app/math-fact-flash/'; // Project URL. Could be something like localhost:8888.
 var productURL					= './'; // Theme/Plugin URL. Leave it like it is, since our gulpfile.js lives in the root folder.
 
 // Translation related.

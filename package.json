@@ -15,8 +15,7 @@
     "test": "npm run start & cypress run --record --key 86dd3c7e-a64f-44e5-bf16-0c6eacdebd19",
     "test:ci": "run-p --race start:ci cypress:run"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "browser-sync": "^2.11.1",
     "cypress": "^1.0.3",

@@ -11,35 +11,41 @@
 
 <body>
 	<main id="app">
-		
+
 		<div class="container">
-			<div class="card" v-bind:data-card="cardstate" v-bind:class="state" v-bind:data-errors="errors" v-bind:data-valids="valids" v-bind:data-answers="answer_count">
+			<div class="card" v-bind:data-card="cardstate" v-bind:class="state" v-bind:data-errors="errors"
+				v-bind:data-valids="valids" v-bind:data-answers="answer_count">
 
 				<figure class="front">
-					<button id="cog" class="top left gray" @click="flipcard()" title="Options"><i class="fa fa-cog"></i></button>
+					<button id="cog" class="top left gray" @click="flipcard()" title="Options"><i
+							class="fa fa-cog"></i></button>
 
 					<div class="term term1" v-text="active_val"></div>
 					<div class="operand" v-text="operation"></div>
 					<div class="term term2" v-text="passive_val"></div>
 
 					<div class="answers" v-bind:data-state="state" v-bind:data-mode="mode">
-						<div class="answer" v-for="(answer, i) in answers" v-bind:class="answer.state" v-text="answer.value" @click="( 
+						<div class="answer" v-for="(answer, i) in answers" v-bind:class="answer.state"
+							v-text="answer.value" @click="( 
 							mode !== 'test' ||
 							state === 'on' && 
 							answer.state === 'on' ? 
 								checkAnswer(i) : 
 								null
-							)" v-bind:data-color="answer_color" v-bind:data-iscorrect="answer.iscorrect" v-bind:data-incorrect="!answer.iscorrect"></div>
+							)" v-bind:data-color="answer_color" v-bind:data-iscorrect="answer.iscorrect"
+							v-bind:data-incorrect="!answer.iscorrect"></div>
 					</div>
 				</figure>
 
 				<figure class="back">
 
-					<button id="close" class="top left red" @click="flipcard()" title="Options"><i class="fa fa-times"></i></button>
+					<button id="close" class="top left red" @click="flipcard()" title="Options"><i
+							class="fa fa-times"></i></button>
 					<button id="ok" class="top right green" @click="reset()" title="OK">
 						<i class="fa fa-check"></i>
 					</button>
-					<button id="logs" class="bottom left lblue" v-bind:class="{ 'dblue' : displaylogs }" @click="displaylog()" title="View Log">
+					<button id="logs" class="bottom left lblue" v-bind:class="{ 'dblue' : displaylogs }"
+						@click="displaylog()" title="View Log">
 						<i class="fa fa-list"></i>
 					</button>
 
@@ -122,14 +128,18 @@
 								<select id="modeselect" v-model="mode">
 									<option value="practice">Practice Mode</option>
 									<option value="test">Test Mode</option>
+									<option value="timer">Timer Mode</option>
 								</select>
-								<button class="info" @click="toggleinfomode()" title="?"><i class="fa fa-info"></i></button>
-								
+								<button class="info" @click="toggleinfomode()" title="?"><i
+										class="fa fa-info"></i></button>
+
 								<dl class="infomode" v-if="infomode == true">
 									<dt>Practice Mode</dt>
 									<dd>Play will continue forever. This is for practicing.</dd>
 									<dt>Test Mode</dt>
 									<dd>Set a certian number of cards and receive a score.</dd>
+									<dt>Timer Mode</dt>
+									<dd>Set a timer and answer as many cards to receive a score.</dd>
 								</dl>
 							</label>
 						</div>
@@ -145,13 +155,25 @@
 								</select>
 							</label>
 						</div>
+						<div class="option timer" v-if="mode == 'timer'">
+							<label><span>Time Limit: </span>
+								<select id="timernumberselect" v-model.number="timer_timeout">
+									<option value="10">10 seconds</option>
+									<option value="20">20 seconds</option>
+									<option value="30">30 seconds</option>
+									<option value="60">1 minute</option>
+									<option value="120">2 minutes</option>
+									<option value="180">3 minutes</option>
+								</select>
+							</label>
+						</div>
 					</div>
-					
+
 					<div class="log" v-bind:class="{ 'hide' : !displaylogs }">
 						<h4>Activity Log <button id="delete_logs" class="info" @click="clearlog()" title="Clear Log">
-							<i class="fa fa-trash-o"></i>
-						</button></h4>
-						
+								<i class="fa fa-trash-o"></i>
+							</button></h4>
+
 						<table class="log">
 							<thead>
 								<tr>
@@ -163,7 +185,8 @@
 							</thead>
 							<tbody>
 								<tr v-for="log in logs">
-									<td class="operation">[{{ log.terms_active }}] {{ log.operation }} [{{ log.terms_passive }}]</td>
+									<td class="operation">[{{ log.terms_active }}] {{ log.operation }}
+										[{{ log.terms_passive }}]</td>
 									<td class="total">{{ log.correct }}/{{ log.total }}</td>
 									<td class="duration">{{ log.duration }} sec</td>
 									<td class="time">{{ log.time | relativetime }}</td>
@@ -177,7 +200,9 @@
 		</div>
 		<span class="progressgrade" v-text="grade"></span>
 		<transition-group tag="div" name="progressbar" class="progressbar" v-bind:data-total="total_cards">
-			<span class="bar" v-for="record in progressrecord" v-bind:class="record.state" v-bind:data-total="total_cards" v-bind:data-count="record.count" :key="record.count" v-bind:style="progresswidthcss()"></span>
+			<span class="bar" v-for="record in progressrecord" v-bind:class="record.state"
+				v-bind:data-total="total_cards" v-bind:data-count="record.count" :key="record.count"
+				v-bind:style="progresswidthcss()"></span>
 		</transition-group>
 	</main>
 	<script src="js/vendors.min.js"></script>
