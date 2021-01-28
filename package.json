@@ -7,6 +7,7 @@
     "type": "git",
     "url": "https://github.com/circlecube/math-fact-flash"
   },
+  "main": "www/index.html", 
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --record --key 86dd3c7e-a64f-44e5-bf16-0c6eacdebd19",

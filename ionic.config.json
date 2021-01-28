@@ -1,0 +1,7 @@
+{
+    "name": "math-fact-flash",
+    "type": "custom",
+    "integrations": {
+      "cordova": {}
+    }
+  }
