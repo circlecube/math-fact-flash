@@ -19,7 +19,7 @@
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "^3.0.3",
-    "cypress": "^1.0.3",
+    "cypress": "^14.0.2",
     "gulp": "^5.0.0",
     "gulp-autoprefixer": "^9.0.0",
     "gulp-concat": "^2.5.2",
