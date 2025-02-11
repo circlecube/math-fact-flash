@@ -19,7 +19,7 @@
   "dependencies": {},
   "devDependencies": {
     "browser-sync": "^3.0.3",
-    "cypress": "^1.0.3",
+    "cypress": "^14.0.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.5.2",
@@ -34,6 +34,6 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.5.3",
     "gulp-uglifycss": "^1.0.6",
-    "http-server": "0.10.0"
+    "http-server": "14.1.1"
   }
 }
