@@ -430,6 +430,6 @@ describe('Math Fact Flash App', function(){
 	it('close logs', function(){
 		cy.get('#logs').should('be.visible')
 		cy.get('#logs').click()
-		cy.get('.logs').should('not.be.visible')
+		cy.get('.log').should('not.be.visible')
 	})
 })

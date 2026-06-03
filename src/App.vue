@@ -124,7 +124,7 @@
                 <button class="info" @click="toggleinfomode()" title="?">
                   <i class="fas fa-info"></i>
                 </button>
-                <dl class="infomode" v-if="infomode">
+                <dl class="infomode" v-show="infomode">
                   <dt>Practice Mode</dt>
                   <dd>Play will continue forever. This is for practicing.</dd>
                   <dt>Test Mode</dt>
@@ -134,7 +134,7 @@
                 </dl>
               </label>
             </div>
-            <div class="option number" v-if="mode === 'test'">
+            <div class="option number" v-show="mode === 'test'">
               <label><span>Number of Cards: </span>
                 <select id="testnumberselect" v-model.number="total_cards">
                   <option value="5">5 cards</option>
@@ -274,7 +274,7 @@ export default {
     relativeTime(time) {
       const diff = (new Date(time).getTime() - Date.now()) / 1000
       const abs = Math.abs(diff)
-      const fmt = new Intl.RelativeTimeFormat('en', { numeric: 'auto' })
+      const fmt = new Intl.RelativeTimeFormat('en', { numeric: 'always' })
       if (abs < 60) return fmt.format(Math.round(diff), 'second')
       if (abs < 3600) return fmt.format(Math.round(diff / 60), 'minute')
       if (abs < 86400) return fmt.format(Math.round(diff / 3600), 'hour')
