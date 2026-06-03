@@ -3,6 +3,7 @@ import { defineConfig } from 'cypress'
 export default defineConfig({
   e2e: {
     baseUrl: 'http://localhost:8888',
+    testIsolation: false,
     env: {
       appurl: 'http://localhost:8888',
     },
