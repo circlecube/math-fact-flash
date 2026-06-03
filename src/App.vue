@@ -275,7 +275,7 @@ export default {
       const diff = (new Date(time).getTime() - Date.now()) / 1000
       const abs = Math.abs(diff)
       const fmt = new Intl.RelativeTimeFormat('en', { numeric: 'always' })
-      if (abs < 60) return fmt.format(Math.round(diff), 'second')
+      if (abs < 60) { const s = Math.round(diff); return fmt.format(s === 0 ? -1 : s, 'second') }
       if (abs < 3600) return fmt.format(Math.round(diff / 60), 'minute')
       if (abs < 86400) return fmt.format(Math.round(diff / 3600), 'hour')
       return fmt.format(Math.round(diff / 86400), 'day')
