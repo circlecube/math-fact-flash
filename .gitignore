@@ -60,6 +60,12 @@ node_modules
 ##########
 /README.html
 /build/
+/dist/
+
+# Vite / Cypress artifacts #
+##########
+cypress/videos/
+cypress/screenshots/
 
 # PhpStrom Project Files #
 .idea/

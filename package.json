@@ -1,39 +1,30 @@
 {
   "name": "math-fact-flash",
   "author": "circlecube",
-  "version": "2017.10.26",
+  "version": "1.0.0",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/circlecube/math-fact-flash"
   },
-  "main": "www/index.html", 
+  "type": "module",
   "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --record --key 86dd3c7e-a64f-44e5-bf16-0c6eacdebd19",
-    "start": "http-server -p 8888 -c-1",
-    "start:ci": "http-server -p 8888 -c-1 --silent",
-    "test": "npm run start & cypress run --record --key 86dd3c7e-a64f-44e5-bf16-0c6eacdebd19",
-    "test:ci": "run-p --race start:ci cypress:run"
+    "cypress:run": "cypress run",
+    "test:ci": "concurrently -k -s first \"npm run preview\" \"cypress run\""
   },
-  "dependencies": {},
+  "dependencies": {
+    "vue": "^3.4.0"
+  },
   "devDependencies": {
-    "browser-sync": "^3.0.3",
-    "cypress": "^1.0.3",
-    "gulp": "^5.0.0",
-    "gulp-autoprefixer": "^9.0.0",
-    "gulp-concat": "^2.5.2",
-    "gulp-filter": "^4.0.0",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-line-ending-corrector": "^1.0.1",
-    "gulp-merge-media-queries": "^0.2.1",
-    "gulp-notify": "^2.2.0",
-    "gulp-rename": "^1.2.0",
-    "gulp-sass": "^2.2.0",
-    "gulp-sort": "^2.0.0",
-    "gulp-sourcemaps": "^1.5.2",
-    "gulp-uglify": "^1.5.3",
-    "gulp-uglifycss": "^1.0.6",
-    "http-server": "14.1.1"
+    "@fortawesome/fontawesome-free": "^6.5.0",
+    "@vitejs/plugin-vue": "^5.0.0",
+    "concurrently": "^8.2.0",
+    "cypress": "^13.6.0",
+    "sass": "^1.70.0",
+    "vite": "^5.0.0"
   }
 }
